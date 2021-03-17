@@ -23,7 +23,7 @@ public class Login extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
     	try {
-			reader = new BufferedReader(new FileReader("resources/users.txt"));
+			reader = new BufferedReader(new FileReader("/src/resources/users.txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

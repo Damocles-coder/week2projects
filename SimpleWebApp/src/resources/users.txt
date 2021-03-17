@@ -1,1 +1,1 @@
-Username	Password
+username	password
