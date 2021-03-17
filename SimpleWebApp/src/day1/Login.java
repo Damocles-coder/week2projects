@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Login
  */
-@jakarta.servlet.annotation.WebServlet("/Login")
+@jakarta.servlet.annotation.WebServlet("Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	BufferedReader reader = null;
