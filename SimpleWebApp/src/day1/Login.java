@@ -4,10 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
-//import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,12 +23,8 @@ public class Login extends HttpServlet {
 	
     @Override
     public void init(ServletConfig config) throws ServletException {
-    	try {
-			reader = new BufferedReader(new FileReader("/src/resources/users.txt"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	super.init(config);
+    	//reader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("users")));
     }
 
 	/**
@@ -37,23 +34,27 @@ public class Login extends HttpServlet {
 		//Usually would access data base but will do a simple file reader instead instead
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		if (reader==null) {
-			System.out.println("File not Found");
-		}
-		else {
-			String temp;
-			String[] split = null;
-			while ((temp=reader.readLine())!=null) {
-				split = temp.split("\t");
-				if(split[0]==username&&split[1]==password) {
+//		if (reader==null) {
+//			System.out.println("File not Found");
+//		}
+//		else {
+//			String temp;
+//			String[] split = null;
+//			while ((temp=reader.readLine())!=null) {
+//				split = temp.split("\t");
+		System.out.println(username);
+		System.out.println(password);
+				if("username".equals(username)&&"password".equals(password)) {
 					System.out.println("User Found");
 					response.setStatus(200);
+					response.sendRedirect("success.html");
 					return;
 				}
-			}
+//			}
 			//Resource not found error
 			response.setStatus(404);
-		}
+			response.sendRedirect("index.html");
+//		}
 	}
 
 }
