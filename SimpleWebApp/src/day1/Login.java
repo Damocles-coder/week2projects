@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Login
  */
-@jakarta.servlet.annotation.WebServlet("Login")
+@jakarta.servlet.annotation.WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	BufferedReader reader = null;
@@ -23,7 +23,7 @@ public class Login extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
     	try {
-			reader = new BufferedReader(new FileReader(""));
+			reader = new BufferedReader(new FileReader("resources/users.txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
