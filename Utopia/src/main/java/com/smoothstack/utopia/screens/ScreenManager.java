@@ -17,7 +17,7 @@ public class ScreenManager {
 	private static Screen trav3;
 	private static Screen admin;
 	
-	static Screen getMain() {
+	public static Screen getMain() {
 		if (main==null) {
 			main = new MainScreen();
 		}
