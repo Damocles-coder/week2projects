@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.smoothstack.utopia.entities.Flight;
-import com.smoothstack.utopia.services.ServiceManager;
 
 /**
  * @author dyltr

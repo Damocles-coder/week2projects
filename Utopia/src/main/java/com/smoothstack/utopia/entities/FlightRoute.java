@@ -11,9 +11,11 @@ import java.time.LocalDateTime;
 public class FlightRoute {
 	private Flight flight;
 	private Route route;
+	
 	public FlightRoute(int id, int routeId, int airplaneId, LocalDateTime departure, 
-			LocalDateTime arrival, int reservedSeats, String source, String destination) {
-		flight = new Flight(id,routeId,airplaneId,departure,arrival,reservedSeats);
+			LocalDateTime arrival, int reservedSeats, float seatPrice, 
+			String source, String destination) {
+		flight = new Flight(id,routeId,airplaneId,departure,arrival,reservedSeats,seatPrice);
 		route = new Route(routeId,source,destination);
 	}
 	public Flight getFlight() {

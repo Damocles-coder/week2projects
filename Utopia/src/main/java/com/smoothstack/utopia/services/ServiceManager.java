@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.smoothstack.utopia.services;
 
 /**
@@ -12,11 +9,13 @@ package com.smoothstack.utopia.services;
  */
 public class ServiceManager {
 	private static FlightService flightService = null;
-	
-	public static FlightService getFlight() {
-		if(flightService == null) {
-			flightService = new FlightService();
-		}
+
+	public static FlightService getFlightService() {
 		return flightService;
 	}
+
+	public static void setFlightService(FlightService flightService) {
+		ServiceManager.flightService = flightService;
+	}
+	
 }

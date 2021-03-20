@@ -9,14 +9,17 @@ public class Flight {
 	private LocalDateTime departure;
 	private LocalDateTime arrival;
 	private int reservedSeats;
+	private float seatPrice;
 	
-	public Flight(int id, int routeId, int airplaneId, LocalDateTime departure, LocalDateTime arrival, int reservedSeats) {
+	public Flight(int id, int routeId, int airplaneId, LocalDateTime departure, LocalDateTime arrival, 
+			int reservedSeats, float seatPrice) {
 		this.id=id;
 		this.routeId=routeId;
 		this.setAirplaneId(airplaneId);
 		this.departure = departure;
 		this.arrival = arrival;
 		this.setReservedSeats(reservedSeats);
+		this.seatPrice = seatPrice;
 	}
 	
 	/**
@@ -59,5 +62,13 @@ public class Flight {
 
 	public void setAirplaneId(int airplaneId) {
 		this.airplaneId = airplaneId;
+	}
+
+	public float getSeatPrice() {
+		return seatPrice;
+	}
+
+	public void setSeatPrice(float seatPrice) {
+		this.seatPrice = seatPrice;
 	}
 }
