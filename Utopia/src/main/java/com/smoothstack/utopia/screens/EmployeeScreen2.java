@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.smoothstack.utopia.entities.Flight;
+import com.smoothstack.utopia.entities.FlightRoute;
+import com.smoothstack.utopia.services.ServiceManager;
 
 /**
  * @author dyltr
@@ -23,9 +25,13 @@ public class EmployeeScreen2 implements Screen {
 		 */
 		
 		//call method from flight service that returns a list of flights
-		//List<FlightRoute> array = ServiceManager.getFlight().getFlightList();
+		List<FlightRoute> array = ServiceManager.getFlightService().getFlightList();
+		for (FlightRoute i:array) {
+			
+		}
 		
 		return null;
 	}
 
+	
 }
