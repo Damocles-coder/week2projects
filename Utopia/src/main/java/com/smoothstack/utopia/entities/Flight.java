@@ -22,6 +22,17 @@ public class Flight {
 		this.seatPrice = seatPrice;
 	}
 	
+	public Flight(int routeId, int airplaneId, LocalDateTime departure, LocalDateTime arrival, 
+			int reservedSeats, float seatPrice) {
+		this.routeId=routeId;
+		this.setAirplaneId(airplaneId);
+		this.departure = departure;
+		this.arrival = arrival;
+		this.setReservedSeats(reservedSeats);
+		this.seatPrice = seatPrice;
+		id = this.hashCode();
+	}
+	
 	/**
 	 * ID should not change
 	 * @return
@@ -70,5 +81,11 @@ public class Flight {
 
 	public void setSeatPrice(float seatPrice) {
 		this.seatPrice = seatPrice;
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = routeId * airplaneId + ((departure == null) ? 0 : departure.hashCode());
+		return result;
 	}
 }
