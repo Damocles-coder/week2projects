@@ -2,49 +2,34 @@ package com.smoothstack.utopia.entities;
 
 public class Route {
 	private final int id;
-	private String source;
-	private String destination;
-	private String sourceCity;
-	private String destinationCity;
+	private Airport source;
+	private Airport destination;
 	
 	public Route(int id, String source, String destination, String sourceCity, String destinationCity) {
 		super();
 		this.id = id;
-		this.source = source;
-		this.destination = destination;
-		this.sourceCity = sourceCity;
-		this.destinationCity = destinationCity;
-	}
-
-	public String getSourceCity() {
-		return sourceCity;
-	}
-
-	public void setSourceCity(String sourceCity) {
-		this.sourceCity = sourceCity;
-	}
-
-	public String getDestinationCity() {
-		return destinationCity;
-	}
-
-	public void setDestinationCity(String destinationCity) {
-		this.destinationCity = destinationCity;
+		this.setSource(new Airport(source,sourceCity));
+		this.setDestination(new Airport(destination, destinationCity));
 	}
 
 	public int getId() {
 		return id;
 	}
-	public String getSource() {
+
+	public Airport getSource() {
 		return source;
 	}
-	public void setSource(String source) {
+
+	public void setSource(Airport source) {
 		this.source = source;
 	}
-	public String getDestination() {
+
+	public Airport getDestination() {
 		return destination;
 	}
-	public void setDestination(String destination) {
+
+	public void setDestination(Airport destination) {
 		this.destination = destination;
 	}
+	
 }

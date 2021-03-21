@@ -47,7 +47,7 @@ public class EmployeeScreen2 implements Screen {
 		}
 		else if (choice>=1&&choice<count) {
 			Screen temp = ScreenManager.getEMP3();
-			((EmployeeScreen3)temp).setF(array.get(count-1));
+			((EmployeeScreen3)temp).setF(array.get(choice-1));
 			return temp;
 		}
 		else {

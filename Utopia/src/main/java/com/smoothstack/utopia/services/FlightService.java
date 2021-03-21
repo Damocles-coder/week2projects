@@ -7,7 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.smoothstack.utopia.dao.AirportDAO;
+import com.smoothstack.utopia.dao.FlightDAO;
 import com.smoothstack.utopia.dao.FlightRouteDAO;
+import com.smoothstack.utopia.dao.FlightStatusDAO;
 import com.smoothstack.utopia.entities.Airport;
 import com.smoothstack.utopia.entities.Flight;
 import com.smoothstack.utopia.entities.FlightRoute;
@@ -49,7 +51,7 @@ public class FlightService {
 	}
 	
 	public String printRoute(Route r, int count) {
-		return count+") "+r.getSource()+", "+r.getSourceCity()+" -> "+r.getDestination()+", "+r.getDestinationCity();
+		return count+") "+r.getSource().getIataId()+", "+r.getSource().getCity()+" -> "+r.getDestination().getIataId()+", "+r.getDestination().getCity();
 	}
 	
 	public List<FlightRoute> getFlightListFiltered() throws SQLException{
@@ -77,10 +79,10 @@ public class FlightService {
 		Flight f = fr.getFlight();
 		Route r = fr.getRoute();
 		StringBuilder b1 = new StringBuilder("You have chosen to view the Flight with Flight Id: "+f.getId());
-		b1.append(" and Departure Airport: "+r.getSource());
-		b1.append(" and Arrival Airport: "+r.getDestination()+".\n\n");
-		b1.append("Departure Airport: "+r.getSource());
-		b1.append(" | Arrival Airport: "+r.getDestination()+"\n");
+		b1.append(" and Departure Airport: "+r.getSource().getIataId());
+		b1.append(" and Arrival Airport: "+r.getDestination().getIataId()+".\n\n");
+		b1.append("Departure Airport: "+r.getSource().getIataId());
+		b1.append(" | Arrival Airport: "+r.getDestination().getIataId()+"\n");
 		b1.append("Departure Date: "+f.getDeparture().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
 		b1.append(" | Departure Time: "+ f.getDeparture().format(DateTimeFormatter.ofPattern("HH:mm"))+"\n\n");
 		//Doing reserved seats for now
@@ -259,4 +261,49 @@ public class FlightService {
 		//same as add seat, but checks if seats does not fall under 0
 		return false;
 	}
+
+	public FlightStatus getFlightStatus(Flight flight) throws SQLException {
+		Connection conn = null;
+		FlightStatus fs = null;
+		//read operation does not change data so there is no need to roll back
+		try {
+			conn = util.getConnection();
+			FlightStatusDAO f1  = new FlightStatusDAO(conn);
+			fs = f1.read(flight);
+			return fs;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+	}
+
+	public boolean updateFlight(Flight flight) throws SQLException {
+		//update operation in Flights
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			FlightDAO f1 = new FlightDAO(conn);
+			f1.update(flight);
+			conn.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		return true;
+	}
+
+
 }
