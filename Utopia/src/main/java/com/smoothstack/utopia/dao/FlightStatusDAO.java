@@ -19,14 +19,14 @@ public class FlightStatusDAO extends BaseDAO<FlightStatus> {
 	
 	public FlightStatus read(Flight flight) throws ClassNotFoundException, SQLException {
 		//shares same id as flight
-		return get("select from flight_status where id=?", new Object[] {flight.getId()}).get(0);
+		return get("select * from flight_status where id=?", new Object[] {flight.getId()}).get(0);
 	}
 	
 	@Override
 	public List<FlightStatus> extractData(ResultSet rs) throws ClassNotFoundException, SQLException{
 		List<FlightStatus> array = new ArrayList<FlightStatus>();
 		while (rs.next()) {
-			array.add(new FlightStatus(new Flight(rs.getInt("flight_id"), rs.getInt("route_id"), rs.getInt("airplane_id"), 
+			array.add(new FlightStatus(new Flight(rs.getInt("id"), rs.getInt("route_id"), rs.getInt("airplane_id"), 
 					rs.getTimestamp("departure_time").toLocalDateTime(), 
 					rs.getTimestamp("arrival_time").toLocalDateTime(), rs.getInt("reserved_seats"),
 					rs.getFloat("seat_price")), rs.getInt("max_capacity"), rs.getInt("passenger_count"), rs.getInt("available_seats")));
