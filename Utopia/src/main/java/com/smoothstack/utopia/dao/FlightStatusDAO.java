@@ -18,7 +18,8 @@ public class FlightStatusDAO extends BaseDAO<FlightStatus> {
 
 	
 	public FlightStatus read(Flight flight) throws ClassNotFoundException, SQLException {
-		return get("select from flight_status where flight_id=?", new Object[] {flight.getId()}).get(0);
+		//shares same id as flight
+		return get("select from flight_status where id=?", new Object[] {flight.getId()}).get(0);
 	}
 	
 	@Override

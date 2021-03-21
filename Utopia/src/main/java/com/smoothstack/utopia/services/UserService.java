@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.smoothstack.utopia.dao.BookingDAO;
+import com.smoothstack.utopia.dao.UserDAO;
 import com.smoothstack.utopia.entities.Booking;
 import com.smoothstack.utopia.entities.User;
 import com.smoothstack.utopia.jdbc.Util;
@@ -39,8 +40,41 @@ public class UserService {
 		}
 	}
 	
-	public List<User> readUser(){
-		
-		return null;
+	public List<User> readAllTravelers() throws SQLException{
+		Connection conn=null;
+		List<User> array;
+		try {
+			conn = util.getConnection();
+			UserDAO u1 = new UserDAO(conn);
+			array=u1.readAllTravelers();
+			return array;
+		}
+		catch(Exception e) {
+			return null;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+	}
+	
+	public List<User> readAllEmployees() throws SQLException{
+		Connection conn=null;
+		List<User> array;
+		try {
+			conn = util.getConnection();
+			UserDAO u1 = new UserDAO(conn);
+			array=u1.readAllEmployee();
+			return array;
+		}
+		catch(Exception e) {
+			return null;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
 	}
 }

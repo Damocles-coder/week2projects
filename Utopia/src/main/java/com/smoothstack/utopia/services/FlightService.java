@@ -27,12 +27,50 @@ public class FlightService {
 		this.util = util;
 	}
 	
-	public List<FlightRoute> getFlightList(){
-		return null;
+	public List<FlightRoute> getFlightList() throws SQLException{
+		Connection conn = null;
+		List<FlightRoute> array;
+		//read operation does not change data so there is no need to roll back
+		try {
+			conn = util.getConnection();
+			FlightRouteDAO f1 = new FlightRouteDAO(conn);
+			array = f1.readAll();
+			return array;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
 	}
 	
-	public List<FlightRoute> getFlightListFiltered(){
-		return null;
+	public String printRoute(Route r, int count) {
+		return count+") "+r.getSource()+", "+r.getSourceCity()+" -> "+r.getDestination()+", "+r.getDestinationCity();
+	}
+	
+	public List<FlightRoute> getFlightListFiltered() throws SQLException{
+		Connection conn = null;
+		List<FlightRoute> array;
+		//read operation does not change data so there is no need to roll back
+		try {
+			conn = util.getConnection();
+			FlightRouteDAO f1 = new FlightRouteDAO(conn);
+			array = f1.readAllFilter();
+			return array;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
 	}
 	
 	public String getFlightInfo(FlightRoute fr) {

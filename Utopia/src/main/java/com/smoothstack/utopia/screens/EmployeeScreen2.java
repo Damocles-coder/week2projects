@@ -3,6 +3,7 @@
  */
 package com.smoothstack.utopia.screens;
 
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -26,10 +27,18 @@ public class EmployeeScreen2 implements Screen {
 		 */
 		
 		//call method from flight service that returns a list of flights
-		List<FlightRoute> array = ServiceManager.getFlightService().getFlightList();
+		List<FlightRoute> array = null;
+		try {
+			array = ServiceManager.getFlightService().getFlightList();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		int count = 1;
-		for (FlightRoute i:array) {
-			readFlightRoute(i,count++);
+		if(array!=null) {
+			for (FlightRoute i:array) {
+				System.out.println(ServiceManager.getFlightService().printRoute(i.getRoute(),count++));
+			}
 		}
 		System.out.println(count+") Quit to previous");
 		int choice = scanner.nextInt();
@@ -45,15 +54,6 @@ public class EmployeeScreen2 implements Screen {
 			System.out.println("Invalid input");
 			return this;
 		}
-	}
-	
-	/**
-	 * print out the route source and destination city and iata_id
-	 * @param f
-	 */
-	private void readFlightRoute(FlightRoute f, int count) {
-		Route r = f.getRoute();
-		System.out.println(count+") "+r.getSource()+", "+r.getSourceCity()+" -> "+r.getDestination()+", "+r.getDestinationCity());
 	}
 
 	

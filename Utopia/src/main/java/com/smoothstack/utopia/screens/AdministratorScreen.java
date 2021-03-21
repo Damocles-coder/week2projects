@@ -25,6 +25,7 @@ public class AdministratorScreen implements Screen {
 		System.out.println("5) Add/Update/Delete/Read Travelers");
 		System.out.println("6) Add/Update/Delete/Read Employees");
 		System.out.println("7) Over-ride Trip Cancellation for a ticket.");
+		System.out.println("8) Return to previous.");
 		
 		int type = scanner.nextInt();
 		if (type>=0&&type<7) {
@@ -38,7 +39,7 @@ public class AdministratorScreen implements Screen {
 		else if (type==7) {
 			overrideTicket(scanner);
 		}
-		return this;
+		return ScreenManager.getAdmin();
 	}
 	
 	private void overrideTicket(Scanner scanner) throws InputMismatchException {
@@ -106,7 +107,6 @@ public class AdministratorScreen implements Screen {
 				try {
 					ServiceManager.getFlightService().createAirport(new Airport(iataId,city));
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;

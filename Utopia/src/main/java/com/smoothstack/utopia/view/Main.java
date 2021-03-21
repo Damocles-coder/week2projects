@@ -50,7 +50,6 @@ public class Main {
 			password = r1.readLine();
 			r1.close();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		return new UtopiaUtil(url, username, password);

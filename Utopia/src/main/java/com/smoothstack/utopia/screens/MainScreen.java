@@ -23,8 +23,9 @@ public class MainScreen implements Screen {
 		switch(scanner.nextInt()) {
 		case 1:
 			temp = ScreenManager.getEMP1();
-			System.out.println("\nEnter the your Employee Number:");
-			((EmployeeScreen)temp).setId(scanner.nextInt());
+			//below is for finding flights related to employee
+			//System.out.println("\nEnter the your Employee Number:");
+			//((EmployeeScreen)temp).setId(scanner.nextInt());
 			return temp;
 		case 2:
 			temp = ScreenManager.getAdmin();

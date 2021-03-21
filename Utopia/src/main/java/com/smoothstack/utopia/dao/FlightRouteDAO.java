@@ -35,22 +35,20 @@ public class FlightRouteDAO extends BaseDAO<FlightRoute> {
 	 * @throws SQLException
 	 */
 	public List<FlightRoute> readAll() throws ClassNotFoundException, SQLException {
-		return get("select f.id as flight_id, r.id as route_id, f.airplane_id as airplane_id, "
-				+ "f.departure_time as departure_time, f.arrival_time as arrival_time, o.iata_id "
-				+ "as origin_id, d.iata_id as destination_id, o.city as origin_city, d.city as destination_city "
-				+ "from airport o join route r on r.origin_id=o.iata_id "
-				+ "join airport d on r.destination_id=d.iata_id "
-				+ "join flight f on r.id=f.route_id",new Object[] {});
+		return get("select f.*, r.origin_id, r.destination_id, o.city as origin_city, d.city as destination_city "
+				+ "from flight f join route r on f.route_id = r.id "
+				+ "join airport o on r.origin_id = o.iata_id "
+				+ "join airport d on r.destination_id = d.iata_id",new Object[] {});
 	}
 
 	@Override
 	public List<FlightRoute> extractData(ResultSet rs) throws ClassNotFoundException, SQLException{
 		List<FlightRoute> array = new ArrayList<FlightRoute>();
 		while (rs.next()) {
-			array.add(new FlightRoute(rs.getInt("flight_id"), rs.getInt("route_id"), rs.getInt("airplane_id"), 
+			array.add(new FlightRoute(rs.getInt("id"), rs.getInt("route_id"), rs.getInt("airplane_id"), 
 					rs.getTimestamp("departure_time").toLocalDateTime(), 
-					rs.getTimestamp("arrival_time").toLocalDateTime(), rs.getInt("reserved_seats"),
-					rs.getFloat("seat_price"),rs.getString("origin_id"), rs.getString("destination_id"),
+					rs.getTimestamp("arrival_time").toLocalDateTime(), rs.getInt("f.reserved_seats"),
+					rs.getFloat("f.seat_price"),rs.getString("origin_id"), rs.getString("destination_id"),
 					rs.getString("origin_city"),rs.getString("destination_city")));
 		}
 		return array;
