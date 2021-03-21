@@ -85,7 +85,7 @@ public class Flight {
 	
 	@Override
 	public int hashCode() {
-		int result = routeId * airplaneId + ((departure == null) ? 0 : departure.hashCode());
+		int result = routeId * airplaneId + "yolo".hashCode();
 		return result;
 	}
 }

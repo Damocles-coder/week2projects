@@ -21,7 +21,8 @@ public class FlightDAO extends BaseDAO<Flight> {
 	
 	public void create(Flight flight) throws ClassNotFoundException, SQLException {
 		save("insert into flight(id,route_id,airplane_id,departure_time,arrival_time,"
-				+ ",reserved_seats,seat_price)", new Object[] {flight.getId(),flight.getRouteId(),
+				+ "reserved_seats,seat_price) values(?,?,?,?,?,?,?)", new Object[] {flight.getId(),
+						flight.getRouteId(),flight.getAirplaneId(),
 						flight.getDeparture(),flight.getArrival(),flight.getReservedSeats(),
 						flight.getSeatPrice()});
 	}
@@ -32,27 +33,24 @@ public class FlightDAO extends BaseDAO<Flight> {
 						flight.getDeparture(), flight.getId() });
 	}
 	
-	public void delete(Flight flight) throws ClassNotFoundException, SQLException {
-		save("delete from flight where id=?", new Object[]{flight.getId()});
+	public void delete(int id) throws ClassNotFoundException, SQLException {
+		save("delete from flight where id=?", new Object[]{id});
 	}
 	
 	public Flight read(int id) throws ClassNotFoundException, SQLException {
-		return get("select from flight where id=?", new Object[] {id}).get(0);
+		return get("select * from flight where id=?", new Object[] {id}).get(0);
 	}
 
-	/**
-	 * Not used
-	 */
 	@Override
 	protected List<Flight> extractData(ResultSet rs) throws SQLException, ClassNotFoundException {
 		List<Flight> array = new ArrayList<Flight>();
 		while(rs.next()) {
 			array.add(new Flight(rs.getInt("id"), rs.getInt("route_id"), rs.getInt("airplane_id"),
-					LocalDateTime.parse(rs.getString("departure_time")), 
-					LocalDateTime.parse(rs.getString("arival_time")), rs.getInt("reserved_seats"),
+					rs.getTimestamp("departure_time").toLocalDateTime(), 
+					rs.getTimestamp("arrival_time").toLocalDateTime(), rs.getInt("reserved_seats"),
 					rs.getFloat("seat_price")));
 		}
-		return null;
+		return array;
 	}
 
 }
