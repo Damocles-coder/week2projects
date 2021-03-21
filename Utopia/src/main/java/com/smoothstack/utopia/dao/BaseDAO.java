@@ -22,7 +22,7 @@ public abstract class BaseDAO<E> {
 	}
 	
 	
-	public void save(String command, Object[] values) throws ClassNotFoundException, SQLException{
+	protected void save(String command, Object[] values) throws ClassNotFoundException, SQLException{
 		PreparedStatement prst = conn.prepareStatement(command);
 		
 		int count = 1;
@@ -51,7 +51,7 @@ public abstract class BaseDAO<E> {
 	}
 	
 	
-	public List<E> get(String command, Object[] values) throws ClassNotFoundException, SQLException{
+	protected List<E> get(String command, Object[] values) throws ClassNotFoundException, SQLException{
 		PreparedStatement prst = conn.prepareStatement(command);
 		
 		int count = 1;

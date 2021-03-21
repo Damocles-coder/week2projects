@@ -33,9 +33,6 @@ public class AdministratorScreen implements Screen {
 		else if (type==7) {
 			overrideTicket();
 		}
-		else {
-			return null;
-		}
 		return this;
 	}
 	

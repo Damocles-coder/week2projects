@@ -2,6 +2,9 @@ package utopia;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
@@ -12,7 +15,22 @@ class UtilTest {
 
 	@Test
 	void getConnectionTest() {
-		Util test = new UtopiaUtil("jdbc:mysql://localhost:3306/utopia", "Dylan", "Tran");
+		BufferedReader r1;
+		String url = null;
+		String username = null;
+		String password = null;
+		try {
+			r1 = new BufferedReader(new FileReader("../utopia/src/test/resources/sql_resources.txt"));
+			url = r1.readLine();
+			username = r1.readLine();
+			password = r1.readLine();
+			r1.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		Util test = new UtopiaUtil(url,username,password);
 
 		assertNotNull(test);
 		Connection test2;

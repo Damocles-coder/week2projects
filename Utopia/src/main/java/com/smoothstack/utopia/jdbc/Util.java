@@ -8,8 +8,6 @@ public abstract class Util {
 	protected String username;
 	protected String password;
 	protected String url;
-	protected String schema;
 
 	public abstract Connection getConnection() throws SQLException;
-	public String getSchema() {return this.schema;}
 }

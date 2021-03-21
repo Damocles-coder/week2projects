@@ -10,7 +10,6 @@ public class UtopiaUtil extends Util {
 		this.url = url;
 		this.password = password;
 		this.username = username;
-		schema = "utopia";
 	}
 
 	@Override
