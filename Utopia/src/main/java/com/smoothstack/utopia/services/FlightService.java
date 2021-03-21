@@ -2,6 +2,8 @@ package com.smoothstack.utopia.services;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.smoothstack.utopia.dao.AirportDAO;
@@ -27,6 +29,25 @@ public class FlightService {
 	
 	public List<FlightRoute> getFlightList(){
 		return null;
+	}
+	
+	public List<FlightRoute> getFlightListFiltered(){
+		return null;
+	}
+	
+	public String getFlightInfo(FlightRoute fr) {
+		Flight f = fr.getFlight();
+		Route r = fr.getRoute();
+		StringBuilder b1 = new StringBuilder("You have chosen to view the Flight with Flight Id: "+f.getId());
+		b1.append(" and Departure Airport: "+r.getSource());
+		b1.append(" and Arrival Airport: "+r.getDestination()+".\n\n");
+		b1.append("Departure Airport: "+r.getSource());
+		b1.append(" | Arrival Airport: "+r.getDestination()+"\n");
+		b1.append("Departure Date: "+f.getDeparture().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+		b1.append(" | Departure Time: "+ f.getDeparture().format(DateTimeFormatter.ofPattern("HH:mm"))+"\n\n");
+		//Doing reserved seats for now
+		b1.append("Reserved seats: "+f.getReservedSeats());
+		return b1.toString();
 	}
 
 	public boolean changeSeats(Flight flight) {
@@ -176,7 +197,7 @@ public class FlightService {
 		return false;
 	}
 	
-	public boolean createSeat(FlightStatus modified, int change) {
+	public boolean addSeat(FlightStatus modified, int change) {
 		//change seating by set number
 		//gets the flight object from flight status
 		//change seats using getter and setter
@@ -188,7 +209,7 @@ public class FlightService {
 		return null;
 	}
 	
-	public boolean updatSeat(FlightStatus changed) {
+	public boolean updateSeat(FlightStatus changed) {
 		//update operation in AirportDao
 		//gets flight object from flight status
 		//checks if requested reserved seats is less than or equal to capacity
