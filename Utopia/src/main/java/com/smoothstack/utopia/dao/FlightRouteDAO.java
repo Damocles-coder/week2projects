@@ -8,9 +8,9 @@ import java.util.List;
 
 import com.smoothstack.utopia.entities.FlightRoute;
 
-public class FlightRouteDao extends BaseDAO<FlightRoute> {
+public class FlightRouteDAO extends BaseDAO<FlightRoute> {
 
-	public FlightRouteDao(Connection conn) {
+	public FlightRouteDAO(Connection conn) {
 		super(conn);
 	}
 

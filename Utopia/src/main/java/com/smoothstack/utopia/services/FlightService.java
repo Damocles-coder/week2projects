@@ -1,9 +1,11 @@
 package com.smoothstack.utopia.services;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.smoothstack.utopia.dao.FlightRouteDao;
+import com.smoothstack.utopia.dao.AirportDAO;
+import com.smoothstack.utopia.dao.FlightRouteDAO;
 import com.smoothstack.utopia.entities.Airport;
 import com.smoothstack.utopia.entities.Flight;
 import com.smoothstack.utopia.entities.FlightRoute;
@@ -18,16 +20,9 @@ import com.smoothstack.utopia.jdbc.Util;
  */
 public class FlightService {
 	Util util;
-	FlightRouteDao dao;
 	
 	public FlightService (Util util) {
 		this.util = util;
-		try {
-			dao = new FlightRouteDao(util.getConnection());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
 	}
 	
 	public List<FlightRoute> getFlightList(){
@@ -38,25 +33,113 @@ public class FlightService {
 		return false;	
 	}
 	
-	public boolean createAirport(Airport airport) {
+	public boolean createAirport(Airport airport) throws SQLException {
 		//create operation in AirportDao
-		return false;
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			AirportDAO a1 = new AirportDAO(conn);
+			a1.create(airport);
+			conn.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		return true;
 	}
 	
-	public Airport readAirport(String id) {
-		//read operation in AirportDao
-		return null;
+	public Airport readAirport(String id) throws SQLException {
+		Connection conn = null;
+		Airport airport;
+		try {
+			conn = util.getConnection();
+			AirportDAO a1 = new AirportDAO(conn);
+			airport = a1.readByCode(id).get(0);
+			conn.commit();
+			return airport;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return null;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
 	}
 	
-	public boolean updateAirport(String id, Airport newAirport) {
-		//update operation in AirportDao
-		return false;
+	public boolean updateAirport(Airport newAirport) throws SQLException {
+		//update airport
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			AirportDAO a1 = new AirportDAO(conn);
+			a1.update(newAirport);
+			conn.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		return true;
 	}
 	
-	public boolean deleteAirport(String id) {
+	public boolean deleteAirport(String id) throws SQLException {
 		//delete operation in AirportDao
-		//automatically delete flights and routes associated with them
-		return false;
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			AirportDAO a1 = new AirportDAO(conn);
+			a1.delete(new Airport(id,null));
+			conn.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		return true;
+	}
+	
+	public List<Airport> readAllAirport() throws SQLException {
+		Connection conn = null;
+		List<Airport> airports;
+		//read operation does not change data so there is no need to roll back
+		try {
+			conn = util.getConnection();
+			AirportDAO a1 = new AirportDAO(conn);
+			airports = a1.readAll();
+			return airports;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
 	}
 	
 	public boolean createPassenger(Passenger passenger) {
