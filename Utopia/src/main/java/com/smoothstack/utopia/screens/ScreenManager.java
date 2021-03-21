@@ -27,7 +27,7 @@ public class ScreenManager {
 		if (admin==null) {
 			admin = new AdministratorScreen();
 		}
-		return emp1;
+		return admin;
 	}
 	static Screen getEMP1() {
 		if (emp1==null) {
