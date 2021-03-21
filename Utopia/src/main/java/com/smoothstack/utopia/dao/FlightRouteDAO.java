@@ -13,6 +13,8 @@ public class FlightRouteDAO extends BaseDAO<FlightRoute> {
 	public FlightRouteDAO(Connection conn) {
 		super(conn);
 	}
+	
+	
 
 	@Override
 	public List<FlightRoute> extractData(ResultSet rs) throws ClassNotFoundException, SQLException{

@@ -101,22 +101,46 @@ public class UserDAOTest {
 	}
 	
 	@Test
-	void readAllTest() throws ClassNotFoundException, SQLException {
+	void readAllEmployeeTest() throws ClassNotFoundException, SQLException {
 		init();
 		a1.delete("Testcase1");
 		a1.delete("Testcase2");
 		a1.delete("Testcase3");
 		a1.delete("Testcase4");
 		
-		int size = a1.readAll().size();
+		int size = a1.readAllEmployee().size();
 		
-		a1.create(new User(0, 1, "TestFirst","TestLast", "username1", "Testcase1", "password", "phone1"));
-		a1.create(new User(0, 1, "TestFirst","TestLast", "username2", "Testcase2", "password", "phone2"));
-		a1.create(new User(0, 1, "TestFirst","TestLast", "username3", "Testcase3", "password", "phone3"));
-		a1.create(new User(0, 1, "TestFirst","TestLast", "username4", "Testcase4", "password", "phone4"));
+		a1.create(new User(0, 3, "TestFirst","TestLast", "username1", "Testcase1", "password", "phone1"));
+		a1.create(new User(0, 3, "TestFirst","TestLast", "username2", "Testcase2", "password", "phone2"));
+		a1.create(new User(0, 3, "TestFirst","TestLast", "username3", "Testcase3", "password", "phone3"));
+		a1.create(new User(0, 3, "TestFirst","TestLast", "username4", "Testcase4", "password", "phone4"));
 		
 		//compare sizes before and after
-		assertEquals(a1.readAll().size(),size+4);
+		assertEquals(a1.readAllEmployee().size(),size+4);
+		
+		a1.delete("Testcase1");
+		a1.delete("Testcase2");
+		a1.delete("Testcase3");
+		a1.delete("Testcase4");
+	}
+	
+	@Test
+	void readAllTravelersTest() throws ClassNotFoundException, SQLException {
+		init();
+		a1.delete("Testcase1");
+		a1.delete("Testcase2");
+		a1.delete("Testcase3");
+		a1.delete("Testcase4");
+		
+		int size = a1.readAllTravelers().size();
+		
+		a1.create(new User(0, 2, "TestFirst","TestLast", "username1", "Testcase1", "password", "phone1"));
+		a1.create(new User(0, 2, "TestFirst","TestLast", "username2", "Testcase2", "password", "phone2"));
+		a1.create(new User(0, 2, "TestFirst","TestLast", "username3", "Testcase3", "password", "phone3"));
+		a1.create(new User(0, 2, "TestFirst","TestLast", "username4", "Testcase4", "password", "phone4"));
+		
+		//compare sizes before and after
+		assertEquals(a1.readAllTravelers().size(),size+4);
 		
 		a1.delete("Testcase1");
 		a1.delete("Testcase2");

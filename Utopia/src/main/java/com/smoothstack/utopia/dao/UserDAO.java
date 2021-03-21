@@ -19,6 +19,18 @@ public class UserDAO extends BaseDAO<User> {
 						user.getUsername(),user.getEmail(),user.getPassword(),user.getPhone()});
 	}
 	
+	public void createEmployee(User user) throws ClassNotFoundException, SQLException {
+		save("insert into user(role_id,given_name,family_name,username,email,password,phone) "
+				+ "values(3,?,?,?,?,?,?)",new Object[] {user.getGivenName(),user.getFamilyName(),
+						user.getUsername(),user.getEmail(),user.getPassword(),user.getPhone()});
+	}
+	
+	public void createTraveler(User user) throws ClassNotFoundException, SQLException {
+		save("insert into user(role_id,given_name,family_name,username,email,password,phone) "
+				+ "values(2,?,?,?,?,?,?)",new Object[] {user.getGivenName(),user.getFamilyName(),
+						user.getUsername(),user.getEmail(),user.getPassword(),user.getPhone()});
+	}
+	
 	public User read(String email) throws ClassNotFoundException, SQLException {
 		return get("select * from user where email=?",new Object[] {email}).get(0);
 	}
@@ -38,14 +50,40 @@ public class UserDAO extends BaseDAO<User> {
 		save("delete from user where email=?",new Object[] {email});
 	}
 	
+	/**
+	 * @param email more likely to delete from email
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public void deleteTraveler(String email) throws ClassNotFoundException, SQLException {
+		save("delete from user where email=? and role_id=2",new Object[] {email});
+	}
+	
+	/**
+	 * @param email more likely to delete from email
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public void deleteEmployee(String email) throws ClassNotFoundException, SQLException {
+		save("delete from user where email=? and role_id=3",new Object[] {email});
+	}
 	
 	/**
 	 * @return list of users
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<User> readAll() throws ClassNotFoundException, SQLException{
-		return get("select * from user",new Object[] {});
+	public List<User> readAllEmployee() throws ClassNotFoundException, SQLException{
+		return get("select * from user where role_id=3",new Object[] {});
+	}
+	
+	/**
+	 * @return list of users
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<User> readAllTravelers() throws ClassNotFoundException, SQLException{
+		return get("select * from user where role_id=2",new Object[] {});
 	}
 
 	@Override
