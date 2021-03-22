@@ -6,10 +6,15 @@ public class Route {
 	private Airport destination;
 	
 	public Route(int id, String source, String destination, String sourceCity, String destinationCity) {
-		super();
 		this.id = id;
 		this.setSource(new Airport(source,sourceCity));
 		this.setDestination(new Airport(destination, destinationCity));
+	}
+	
+	public Route(Airport source, Airport destination) {
+		this.id = 0;
+		this.source = source;
+		this.destination = destination;
 	}
 
 	public int getId() {

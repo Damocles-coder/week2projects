@@ -15,15 +15,19 @@ import com.smoothstack.utopia.services.ServiceManager;
  * @author dyltr
  *
  */
-public class TravelerScreen2 implements Screen {
+public class TravelerScreen4 implements Screen {
+	public int getId() {
+		return id;
+	}
+
 	private int id;
 
 	public Screen run(Scanner scanner) throws InputMismatchException {
-		System.out.println("Pick the Flight you want to book a ticket for: /n/n");
+		System.out.println("\nPick the Flight you want to cancel:");
 		//call method from flight service that returns a list of flights
 		List<FlightRoute> array = null;
 		try {
-			array = ServiceManager.getFlightService().getFlightList();
+			array = ServiceManager.getFlightService().getFlightListFiltered(id);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,21 +41,17 @@ public class TravelerScreen2 implements Screen {
 		System.out.println(count+") Quit to previous");
 		int choice = scanner.nextInt();
 		if(choice==count) {
-			return ScreenManager.getEMP1();
+			return ScreenManager.getTRAV1();
 		}
 		else if (choice>=1&&choice<count) {
-			Screen temp = ScreenManager.getEMP3();
-			((TravelerScreen3)temp).setF(array.get(choice-1));
+			Screen temp = ScreenManager.getTRAV5();
+			((TravelerScreen5)temp).setF(array.get(choice-1));
 			return temp;
 		}
 		else {
 			System.out.println("Invalid input");
 			return this;
 		}
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public void setId(int id) {

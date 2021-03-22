@@ -17,11 +17,16 @@ public class TravelerScreen implements Screen {
 		System.out.println("\n1) Book a Ticket");
 		System.out.println("2) Cancel an Upcoming Trip");
 		System.out.println("3) Quit to Previous");
+		Screen temp;
 		switch(scanner.nextInt()) {
 		case 1:
+			temp = ScreenManager.getTRAV2();
+			((TravelerScreen2)temp).setId(id);
 			return ScreenManager.getTRAV2();
 		case 2:
-			return ScreenManager.getTRAV3();
+			temp = ScreenManager.getTRAV4();
+			((TravelerScreen4)temp).setId(id);
+			return temp;
 		case 3:
 			return ScreenManager.getMain();
 		default:

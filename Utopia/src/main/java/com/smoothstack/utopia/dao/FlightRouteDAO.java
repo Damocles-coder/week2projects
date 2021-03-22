@@ -14,19 +14,19 @@ public class FlightRouteDAO extends BaseDAO<FlightRoute> {
 	}
 	
 	/**
-	 * @return List of all FlightRoute objects associated with any agents
+	 * @param id 
+	 * @return List of all FlightRoute objects associated with any user ids
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<FlightRoute> readAllFilter() throws ClassNotFoundException, SQLException {
-		return get("select f.id as flight_id, r.id as route_id, f.airplane_id as airplane_id, "
-				+ "f.departure_time as departure_time, f.arrival_time as arrival_time, o.iata_id "
-				+ "as origin_id, d.iata_id as destination_id, o.city as origin_city, d.city as destination_city "
-				+ "from airport o join route r on r.origin_id=o.iata_id "
-				+ "join airport d on r.destination_id=d.iata_id "
-				+ "join flight f on r.id=f.route_id "
-				+ "join flight_booking fb f.id = fb.flight_id "
-				+ "join booking_agent ba on ba.booking_id = fb.booking_id",new Object[] {});
+	public List<FlightRoute> readAllFilter(int id) throws ClassNotFoundException, SQLException {
+		return get("select f.*, r.origin_id, r.destination_id, o.city as origin_city, d.city as destination_city "
+				+ "from flight f join route r on f.route_id = r.id "
+				+ "join airport o on r.origin_id = o.iata_id "
+				+ "join airport d on r.destination_id = d.iata_id "
+				+ "join flight_bookings fb on f.id=fb.flight_id "
+				+ "join booking_user bu on bu.booking_id=fb.booking_id "
+				+ "where bu.user_id=?",new Object[] {id});
 	}
 	
 	/**

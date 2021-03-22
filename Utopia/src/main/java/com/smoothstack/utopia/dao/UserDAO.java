@@ -97,4 +97,15 @@ public class UserDAO extends BaseDAO<User> {
 		return array;
 	}
 
+	/**
+	 * @param email
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public User read(int key) throws ClassNotFoundException, SQLException {
+		return get("select * from user u inner join booking_user b on u.id = b.user_id where id=?",
+				new Object[] {key}).get(0);
+	}
+
 }

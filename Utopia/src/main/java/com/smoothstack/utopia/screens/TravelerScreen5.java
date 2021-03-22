@@ -15,7 +15,7 @@ import com.smoothstack.utopia.services.ServiceManager;
  * @author dyltr
  *
  */
-public class TravelerScreen3 implements Screen {
+public class TravelerScreen5 implements Screen {
 	private FlightRoute f;
 
 	public Screen run(Scanner scanner) throws InputMismatchException {

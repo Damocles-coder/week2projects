@@ -14,6 +14,7 @@ import com.smoothstack.utopia.screens.Screen;
 import com.smoothstack.utopia.screens.ScreenManager;
 import com.smoothstack.utopia.services.FlightService;
 import com.smoothstack.utopia.services.ServiceManager;
+import com.smoothstack.utopia.services.UserService;
 
 /**
  * @author dyltr
@@ -30,6 +31,7 @@ public class Main {
 		Util util = m1.utilSetup();
 
 		ServiceManager.setFlightService(new FlightService(util));
+		ServiceManager.setUserService(new UserService(util));
 		
 		Screen curr = ScreenManager.getMain();
 		Scanner scanner = new Scanner(System.in);

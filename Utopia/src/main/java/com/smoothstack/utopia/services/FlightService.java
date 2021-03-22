@@ -6,10 +6,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import com.smoothstack.utopia.dao.AirplaneTypeDAO;
 import com.smoothstack.utopia.dao.AirportDAO;
 import com.smoothstack.utopia.dao.FlightDAO;
 import com.smoothstack.utopia.dao.FlightRouteDAO;
 import com.smoothstack.utopia.dao.FlightStatusDAO;
+import com.smoothstack.utopia.dao.RouteDAO;
+import com.smoothstack.utopia.entities.AirplaneType;
 import com.smoothstack.utopia.entities.Airport;
 import com.smoothstack.utopia.entities.Flight;
 import com.smoothstack.utopia.entities.FlightRoute;
@@ -54,14 +57,14 @@ public class FlightService {
 		return count+") "+r.getSource().getIataId()+", "+r.getSource().getCity()+" -> "+r.getDestination().getIataId()+", "+r.getDestination().getCity();
 	}
 	
-	public List<FlightRoute> getFlightListFiltered() throws SQLException{
+	public List<FlightRoute> getFlightListFiltered(int id) throws SQLException{
 		Connection conn = null;
 		List<FlightRoute> array;
 		//read operation does not change data so there is no need to roll back
 		try {
 			conn = util.getConnection();
 			FlightRouteDAO f1 = new FlightRouteDAO(conn);
-			array = f1.readAllFilter();
+			array = f1.readAllFilter(id);
 			return array;
 		}
 		catch(Exception e) {
@@ -75,7 +78,7 @@ public class FlightService {
 		}
 	}
 	
-	public String getFlightInfo(FlightRoute fr) {
+	public String getFlightInfo(FlightRoute fr, FlightStatus fs) {
 		Flight f = fr.getFlight();
 		Route r = fr.getRoute();
 		StringBuilder b1 = new StringBuilder("You have chosen to view the Flight with Flight Id: "+f.getId());
@@ -84,9 +87,10 @@ public class FlightService {
 		b1.append("Departure Airport: "+r.getSource().getIataId());
 		b1.append(" | Arrival Airport: "+r.getDestination().getIataId()+"\n");
 		b1.append("Departure Date: "+f.getDeparture().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
-		b1.append(" | Departure Time: "+ f.getDeparture().format(DateTimeFormatter.ofPattern("HH:mm"))+"\n\n");
-		//Doing reserved seats for now
-		b1.append("Reserved seats: "+f.getReservedSeats());
+		b1.append(" | Departure Time: "+ f.getDeparture().format(DateTimeFormatter.ofPattern("HH:mm")));
+		b1.append("Arrival Date: "+f.getArrival().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+		b1.append(" | Arrival Time: "+ f.getArrival().format(DateTimeFormatter.ofPattern("HH:mm"))+"\n\n");
+		b1.append("Reserved seats: "+fs.getAvailableSeats());
 		return b1.toString();
 	}
 
@@ -288,6 +292,7 @@ public class FlightService {
 		Connection conn = null;
 		try {
 			conn = util.getConnection();
+			conn.setAutoCommit(false);
 			FlightDAO f1 = new FlightDAO(conn);
 			f1.update(flight);
 			conn.commit();
@@ -305,5 +310,50 @@ public class FlightService {
 		return true;
 	}
 
+	public boolean updateAirplane(AirplaneType airplaneType) throws SQLException {
+		//update airplane type
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			AirplaneTypeDAO a1 = new AirplaneTypeDAO(conn);
+			a1.update(airplaneType);
+			conn.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		return true;
+	}
 
+	public Route findRoute(Route route) throws SQLException {
+		//returns route if found with its id
+		Connection conn = null;
+		Route found = null;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			RouteDAO r1 = new RouteDAO(conn);
+			found=r1.read(route);
+			conn.commit();
+			return found;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return null;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+	}
 }

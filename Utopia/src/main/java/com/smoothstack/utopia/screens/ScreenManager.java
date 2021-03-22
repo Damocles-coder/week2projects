@@ -15,6 +15,8 @@ public class ScreenManager {
 	private static Screen trav1;
 	private static Screen trav2;
 	private static Screen trav3;
+	private static Screen trav4;
+	private static Screen trav5;
 	private static Screen admin;
 	
 	public static Screen getMain() {
@@ -64,5 +66,17 @@ public class ScreenManager {
 			trav3 = new TravelerScreen3();
 		}
 		return trav3;
+	}
+	static Screen getTRAV5() {
+		if (trav5==null) {
+			trav5 = new TravelerScreen5();
+		}
+		return trav5;
+	}
+	static Screen getTRAV4() {
+		if (trav4==null) {
+			trav4 = new TravelerScreen4();
+		}
+		return trav4;
 	}
 }

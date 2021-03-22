@@ -20,11 +20,6 @@ import com.smoothstack.utopia.services.ServiceManager;
 public class EmployeeScreen2 implements Screen {
 	
 	public Screen run(Scanner scanner) throws InputMismatchException {
-		/*Get list of flights that the employee manages in
-		 * the format sourceAirport -> destinationAirport
-		 * Get booking where id = user where role = employee
-		 * Get flight where flight id is associated with booking id
-		 */
 		
 		//call method from flight service that returns a list of flights
 		List<FlightRoute> array = null;

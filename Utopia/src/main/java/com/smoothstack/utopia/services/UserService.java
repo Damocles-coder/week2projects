@@ -77,4 +77,28 @@ public class UserService {
 			}
 		}
 	}
+
+	public boolean checkKey(int key) throws SQLException {
+		Connection conn=null;
+		User user;
+		try {
+			conn = util.getConnection();
+			UserDAO u1 = new UserDAO(conn);
+			user=u1.read(key);
+			if (user!=null) {
+				return true;
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		System.out.println("User does not Exist");
+		return false;
+	}
 }

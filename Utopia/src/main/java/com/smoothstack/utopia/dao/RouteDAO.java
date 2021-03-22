@@ -8,27 +8,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.smoothstack.utopia.entities.Flight;
+import com.smoothstack.utopia.entities.Route;
 
-public class RouteDAO extends BaseDAO<Flight> {
+public class RouteDAO extends BaseDAO<Route> {
 
 	public RouteDAO(Connection conn) {
 		super(conn);
 		// TODO Auto-generated constructor stub
 	}
 
+	public Route read(Route r) throws SQLException, ClassNotFoundException{
+	return get("select r.id, r.origin_id, r.destination_id, o.city as origin_city, d.city as destination_city "
+			+ "from route r "
+			+ "join airport o on r.origin_id = o.iata_id "
+			+ "join airport d on r.destination_id = d.iata_id "
+			+ "where r.origin_id=? and r.destination_id=? and "
+			+ "o.city=? and d.city=?",new Object[] {r.getSource().getIataId(),
+					r.getDestination().getIataId(),r.getSource().getCity(),r.getDestination().getCity()}).get(0);
+	}
+	
 	/**
 	 * Not used
 	 */
 	@Override
-	protected List<Flight> extractData(ResultSet rs) throws SQLException, ClassNotFoundException {
-		List<Flight> array = new ArrayList<Flight>();
+	protected List<Route> extractData(ResultSet rs) throws SQLException, ClassNotFoundException {
+		List<Route> array = new ArrayList<Route>();
 		while(rs.next()) {
-			array.add(new Flight(rs.getInt("id"), rs.getInt("route_id"), rs.getInt("airplane_id"),
-					LocalDateTime.parse(rs.getString("departure_time")), 
-					LocalDateTime.parse(rs.getString("arival_time")), rs.getInt("reserved_seats"),
-					rs.getFloat("seat_price")));
+			array.add(new Route(rs.getInt("id"),rs.getString("origin_id"),
+					rs.getString("destination_id"), rs.getString("origin_city"), 
+					rs.getString("destination_city")));
 		}
-		return null;
+		return array;
 	}
 
 }
