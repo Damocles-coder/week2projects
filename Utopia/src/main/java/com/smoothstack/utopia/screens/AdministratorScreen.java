@@ -21,10 +21,14 @@ import com.smoothstack.utopia.services.ServiceManager;
 
 /**
  * @author dyltr
- *
+ * administrator screen
  */
 public class AdministratorScreen implements Screen {
 	
+	/**
+	 *returns this screen if 1-7, !=8 selected,
+	 *returns main menu if 8 is selected
+	 */
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		System.out.println("\n1) Add/Update/Delete/Read Flights");
 		System.out.println("2) Add/Update/Delete/Read Seats");
@@ -214,6 +218,7 @@ public class AdministratorScreen implements Screen {
 	}
 	
 	/**
+	 * Crud switch method. A little redundant at this point but makes the screen readable
 	 * @param choice of which item you want to operate on
 	 * @throws SQLException 
 	 */
@@ -244,6 +249,10 @@ public class AdministratorScreen implements Screen {
 		}
 	}
 	
+	/**
+	 * A very long create flight operation deserves its own method
+	 * @param scanner
+	 */
 	private void flightCreate(Scanner scanner) {
 		List<Airport> aArray = null;
 		Airport origin;
@@ -329,6 +338,11 @@ public class AdministratorScreen implements Screen {
 		}
 	}
 	
+	/**
+	 * crud operations on flight objects
+	 * @param scanner
+	 * @throws SQLException
+	 */
 	private void flightCrud(Scanner scanner) throws SQLException {
 		int count;
 		int choice;
@@ -409,6 +423,11 @@ public class AdministratorScreen implements Screen {
 		}
 	}
 	
+	/**
+	 * crud operation on seat in airplane_type objects
+	 * decided to make the whole crud operation happen on airplane_type
+	 * @param scanner
+	 */
 	private void seatCrud(Scanner scanner) {
 		List<AirplaneType> array = null;
 		AirplaneType airplane = null;
@@ -485,6 +504,10 @@ public class AdministratorScreen implements Screen {
 		}
 	}
 	
+	/**
+	 * booking crud not implemented
+	 * @param scanner
+	 */
 	private void bookingCrud(Scanner scanner) {
 		System.out.println("1) Add");
 		System.out.println("2) Update");
@@ -502,6 +525,10 @@ public class AdministratorScreen implements Screen {
 		}
 	}
 	
+ 	/**
+ 	 * crud ops on airports
+ 	 * @param scanner
+ 	 */
  	private void airportCrud(Scanner scanner) {
 		List <Airport> airports = null;
 		try {
@@ -570,6 +597,10 @@ public class AdministratorScreen implements Screen {
 			}
 	}
 	
+	/**
+	 * crud ops on travelers
+	 * @param scanner
+	 */
 	private void travelerCrud(Scanner scanner) {
 		String givenName;
 		String familyName;
@@ -699,6 +730,10 @@ public class AdministratorScreen implements Screen {
 			}
 	}
 	
+ 	/**
+ 	 * crud ops on employees
+ 	 * @param scanner
+ 	 */
  	private void employeeCrud(Scanner scanner) {
 		String givenName;
 		String familyName;

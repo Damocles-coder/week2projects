@@ -3,7 +3,6 @@ package com.smoothstack.utopia.services;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -35,6 +34,7 @@ import com.smoothstack.utopia.jdbc.Util;
 /**
  * @author dyltr
  * Services anything with a dependency on flight
+ * A lot of things have dependencies on flight
  */
 public class FlightService {
 	Util util;
@@ -43,6 +43,10 @@ public class FlightService {
 		this.util = util;
 	}
 	
+	/**
+	 * @return list of all flights
+	 * @throws SQLException
+	 */
 	public List<FlightRoute> getFlightList() throws SQLException{
 		Connection conn = null;
 		List<FlightRoute> array;
@@ -64,10 +68,20 @@ public class FlightService {
 		}
 	}
 	
+	/**
+	 * @param r
+	 * @param count
+	 * @return route information
+	 */
 	public String printRoute(Route r, int count) {
 		return count+") "+r.getSource().getIataId()+", "+r.getSource().getCity()+" -> "+r.getDestination().getIataId()+", "+r.getDestination().getCity();
 	}
 	
+	/**
+	 * @param id
+	 * @return list of FlightRoute objects
+	 * @throws SQLException
+	 */
 	public List<FlightRoute> getFlightListFiltered(int id) throws SQLException{
 		Connection conn = null;
 		List<FlightRoute> array;
@@ -89,6 +103,11 @@ public class FlightService {
 		}
 	}
 	
+	/**
+	 * @param fr
+	 * @param fs
+	 * @return description of flight
+	 */
 	public String getFlightInfo(FlightRoute fr, FlightStatus fs) {
 		Flight f = fr.getFlight();
 		Route r = fr.getRoute();
@@ -108,10 +127,11 @@ public class FlightService {
 		return b1.toString();
 	}
 
-	public boolean changeSeats(Flight flight) {
-		return false;	
-	}
-	
+	/**
+	 * @param id
+	 * @return AirplaneType from id
+	 * @throws SQLException
+	 */
 	public AirplaneType readAirplaneType(int id) throws SQLException {
 		Connection conn = null;
 		try {
@@ -130,6 +150,11 @@ public class FlightService {
 		}
 	}
 	
+	/**
+	 * @param airport creates
+	 * @return true if no sql exceptions
+	 * @throws SQLException
+	 */
 	public boolean createAirport(Airport airport) throws SQLException {
 		//create operation in AirportDao
 		Connection conn = null;
@@ -153,6 +178,11 @@ public class FlightService {
 		return true;
 	}
 	
+	/**
+	 * @param id read
+	 * @return Airport object from id
+	 * @throws SQLException
+	 */
 	public Airport readAirport(String id) throws SQLException {
 		Connection conn = null;
 		Airport airport;
@@ -176,6 +206,11 @@ public class FlightService {
 		}
 	}
 	
+	/**
+	 * @param newAirport update
+	 * @return true if no exceptions
+	 * @throws SQLException
+	 */
 	public boolean updateAirport(Airport newAirport) throws SQLException {
 		//update airport
 		Connection conn = null;
@@ -199,6 +234,11 @@ public class FlightService {
 		return true;
 	}
 	
+	/**
+	 * @param id delete airport
+	 * @return true if no exceptions
+	 * @throws SQLException
+	 */
 	public boolean deleteAirport(String id) throws SQLException {
 		//delete operation in AirportDao
 		Connection conn = null;
@@ -222,6 +262,10 @@ public class FlightService {
 		return true;
 	}
 	
+	/**
+	 * @return list of all airports
+	 * @throws SQLException
+	 */
 	public List<Airport> readAllAirport() throws SQLException {
 		Connection conn = null;
 		List<Airport> airports;
@@ -244,6 +288,11 @@ public class FlightService {
 		}
 	}
 
+	/**
+	 * @param flight
+	 * @return FlightStatus from flight
+	 * @throws SQLException
+	 */
 	public FlightStatus getFlightStatus(Flight flight) throws SQLException {
 		Connection conn = null;
 		FlightStatus fs = null;
@@ -265,6 +314,11 @@ public class FlightService {
 		}
 	}
 
+	/**
+	 * @param flight update
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean updateFlight(Flight flight) throws SQLException {
 		//update operation in Flights
 		Connection conn = null;
@@ -288,6 +342,11 @@ public class FlightService {
 		return true;
 	}
 
+	/**
+	 * @param airplaneType update
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean updateAirplane(AirplaneType airplaneType) throws SQLException {
 		//update airplane type
 		Connection conn = null;
@@ -311,6 +370,11 @@ public class FlightService {
 		return true;
 	}
 
+	/**
+	 * @param route
+	 * @return route if route exists in database else null
+	 * @throws SQLException
+	 */
 	public Route findRoute(Route route) throws SQLException {
 		//returns route if found with its id
 		Connection conn = null;
@@ -335,7 +399,12 @@ public class FlightService {
 		}
 	}
 
-	public void createRoute(Route route) throws SQLException {
+	/**
+	 * @param route create
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
+	public boolean createRoute(Route route) throws SQLException {
 		Connection conn = null;
 		try {
 			conn = util.getConnection();
@@ -343,10 +412,12 @@ public class FlightService {
 			RouteDAO r1 = new RouteDAO(conn);
 			r1.create(route);
 			conn.commit();
+			return true;
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 			conn.rollback();
+			return false;
 		}
 		finally {
 			if (conn!=null) {
@@ -355,6 +426,11 @@ public class FlightService {
 		}
 	}
 
+	/**
+	 * @param flight create
+	 * @return true if no exceptions
+	 * @throws SQLException
+	 */
 	public boolean createFlight(Flight flight) throws SQLException {
 		Connection conn = null;
 		try {
@@ -377,6 +453,11 @@ public class FlightService {
 		return true;
 	}
 
+	/**
+	 * @param flight delete
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean deleteFlight(Flight flight) throws SQLException {
 		Connection conn = null;
 		try {
@@ -399,6 +480,14 @@ public class FlightService {
 		return true;
 	}
 
+	/**
+	 * books a seat and updates/insert influenced records
+	 * @param user
+	 * @param f
+	 * @param classId
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean bookSeat(User user, FlightRoute f, int classId) throws SQLException {
 		Connection conn = null;
 		Booking b = new Booking(true);
@@ -464,6 +553,13 @@ public class FlightService {
 		return true;
 	}
 
+	/**
+	 * books a seat and updates/delete influenced records
+	 * @param user
+	 * @param f
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean unbookSeat(User user, FlightRoute f) throws SQLException {
 		Connection conn = null;
 		Booking b;
@@ -519,6 +615,11 @@ public class FlightService {
 		return true;
 	}
 
+	/**
+	 * @param id
+	 * @return get list of cancelled flightroute objects
+	 * @throws SQLException
+	 */
 	public List<FlightRoute> getFlightListFilteredCancel(int id) throws SQLException {
 		Connection conn = null;
 		List<FlightRoute> array;
@@ -540,6 +641,14 @@ public class FlightService {
 		}
 	}
 
+	/**
+	 * sets booking.active to true and booking_payment.refunded to false
+	 * updates flight seats
+	 * @param user
+	 * @param f
+	 * @return true if no exceptions 
+	 * @throws SQLException
+	 */
 	public boolean rebookSeat(User user, FlightRoute f) throws SQLException {
 		Connection conn = null;
 		Booking b;
@@ -597,6 +706,10 @@ public class FlightService {
 		return true;
 	}
 
+	/**
+	 * @return list of all airplane types
+	 * @throws SQLException
+	 */
 	public List<AirplaneType> readAllAirplaneType() throws SQLException {
 		Connection conn = null;
 		try {
@@ -615,6 +728,11 @@ public class FlightService {
 		}
 	}
 
+	/**
+	 * @param airplane create (airplane_type)
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean createAiplane(AirplaneType airplane) throws SQLException {
 		Connection conn = null;
 		try {
@@ -637,6 +755,11 @@ public class FlightService {
 		return true;
 	}
 
+	/**
+	 * @param choice delete (airplane type)
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean deleteAirplane(int choice) throws SQLException {
 		Connection conn = null;
 		try {

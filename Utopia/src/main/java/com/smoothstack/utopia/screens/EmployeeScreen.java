@@ -8,11 +8,14 @@ import java.util.Scanner;
 
 /**
  * @author dyltr
- *
+ * main employee screen
  */
 public class EmployeeScreen implements Screen {
 	private int id;
 	
+	/**
+	 * return employee flights screen or main based on input
+	 */
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		System.out.println("\n1) Enter Flights You Manage");
 		System.out.println("2) Quit to previous");

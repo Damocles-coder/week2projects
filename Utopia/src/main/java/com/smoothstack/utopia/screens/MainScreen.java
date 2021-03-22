@@ -4,18 +4,20 @@
 package com.smoothstack.utopia.screens;
 
 import java.sql.SQLException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import com.smoothstack.utopia.entities.User;
 import com.smoothstack.utopia.services.ServiceManager;
 
 /**
  * @author dyltr
- *
+ * main menu screen
  */
 public class MainScreen implements Screen {
 	
+	/**
+	 * return emp1, trav1, or admin screen
+	 * cannot proceed to trav1 without valid user id
+	 */
 	public Screen run(Scanner scanner) {
 		Screen temp;
 		

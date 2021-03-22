@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.smoothstack.utopia.entities.Flight;
-import com.smoothstack.utopia.entities.FlightRoute;
 import com.smoothstack.utopia.entities.FlightStatus;
 
 public class FlightStatusDAO extends BaseDAO<FlightStatus> {

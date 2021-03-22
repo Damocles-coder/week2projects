@@ -10,11 +10,15 @@ import com.smoothstack.utopia.entities.User;
 
 /**
  * @author dyltr
- *
+ * main traveler screen
  */
 public class TravelerScreen implements Screen {
 	private User user;
 
+	/**
+	 * returns previous screen, trav2, or trav4
+	 * passes user into trav2 and trav4
+	 */
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		System.out.println("\n1) Book a Ticket");
 		System.out.println("2) Cancel an Upcoming Trip");

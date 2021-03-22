@@ -3,7 +3,6 @@ package com.smoothstack.utopia.services;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-
 import com.smoothstack.utopia.dao.BookingDAO;
 import com.smoothstack.utopia.dao.UserDAO;
 import com.smoothstack.utopia.entities.Booking;
@@ -12,7 +11,7 @@ import com.smoothstack.utopia.jdbc.Util;
 
 /**
  * @author dyltr
- * Services Users and bookings
+ * Services Users
  */
 public class UserService {
 	Util util;
@@ -21,6 +20,11 @@ public class UserService {
 		this.util = util;
 	}
 	
+	/**
+	 * @param user create(traveler)
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean createTraveler(User user) throws SQLException {
 		Connection conn=null;
 		try {
@@ -42,6 +46,11 @@ public class UserService {
 		}
 	}
 	
+	/**
+	 * @param user create
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean createEmployee(User user) throws SQLException {
 		Connection conn=null;
 		try {
@@ -62,6 +71,11 @@ public class UserService {
 		}
 	}
 	
+	/**
+	 * @param email delete(employee)
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean deleteEmployee(String email) throws SQLException {
 		Connection conn=null;
 		try {
@@ -82,6 +96,11 @@ public class UserService {
 		}
 	}
 	
+	/**
+	 * @param email
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean deleteTraveler(String email) throws SQLException {
 		Connection conn=null;
 		try {
@@ -102,6 +121,11 @@ public class UserService {
 		}
 	}
 	
+	/**
+	 * @param booking
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean updateBooking(Booking booking) throws SQLException {
 		Connection conn=null;
 		try {
@@ -122,6 +146,10 @@ public class UserService {
 		}
 	}
 	
+	/**
+	 * @return list of all travelers
+	 * @throws SQLException
+	 */
 	public List<User> readAllTravelers() throws SQLException{
 		Connection conn=null;
 		List<User> array;
@@ -141,6 +169,10 @@ public class UserService {
 		}
 	}
 	
+	/**
+	 * @return list of all employees
+	 * @throws SQLException
+	 */
 	public List<User> readAllEmployees() throws SQLException{
 		Connection conn=null;
 		List<User> array;
@@ -160,6 +192,11 @@ public class UserService {
 		}
 	}
 
+	/**
+	 * @param key
+	 * @return user if found from key or null
+	 * @throws SQLException
+	 */
 	public User checkKey(int key) throws SQLException {
 		Connection conn=null;
 		User user;
@@ -180,6 +217,11 @@ public class UserService {
 		return user;
 	}
 
+	/**
+	 * @param email
+	 * @return user from email
+	 * @throws SQLException
+	 */
 	public User read(String email) throws SQLException {
 		Connection conn=null;
 		User user;
@@ -199,6 +241,11 @@ public class UserService {
 		}
 	}
 
+	/**
+	 * @param user update
+	 * @return true if no exception
+	 * @throws SQLException
+	 */
 	public boolean updateUser(User user) throws SQLException{
 		// TODO Auto-generated method stub
 		Connection conn=null;

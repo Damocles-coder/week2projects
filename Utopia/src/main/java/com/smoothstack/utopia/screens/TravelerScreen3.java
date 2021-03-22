@@ -6,12 +6,8 @@ package com.smoothstack.utopia.screens;
 import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import com.smoothstack.utopia.entities.Booking;
-import com.smoothstack.utopia.entities.FlightBooking;
 import com.smoothstack.utopia.entities.FlightRoute;
 import com.smoothstack.utopia.entities.FlightStatus;
-import com.smoothstack.utopia.entities.Passenger;
 import com.smoothstack.utopia.entities.User;
 import com.smoothstack.utopia.services.ServiceManager;
 
@@ -23,6 +19,10 @@ public class TravelerScreen3 implements Screen {
 	private FlightRoute f;
 	private User user;
 
+	/**
+	 * return this screen if inputs are valid and not 5
+	 * if 5, return previous
+	 */
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		FlightStatus fs = null;
 		try {

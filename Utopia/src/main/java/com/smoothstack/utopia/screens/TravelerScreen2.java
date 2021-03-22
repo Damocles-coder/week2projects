@@ -14,11 +14,15 @@ import com.smoothstack.utopia.services.ServiceManager;
 
 /**
  * @author dyltr
- *
+ * screen that prints out every flight
  */
 public class TravelerScreen2 implements Screen {
 	private User user;
 
+	/**
+	 *return trav3 or previous
+	 *passes in user and flightroute object into trav3
+	 */
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		System.out.println("Pick the Flight you want to book a ticket for: /n/n");
 		//call method from flight service that returns a list of flights

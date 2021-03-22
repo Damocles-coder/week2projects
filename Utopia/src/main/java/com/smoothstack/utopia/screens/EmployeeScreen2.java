@@ -13,10 +13,14 @@ import com.smoothstack.utopia.services.ServiceManager;
 
 /**
  * @author dyltr
- *
+ * screen with list of flights
+ * Able to adjust to employee id when the situation calls for it
  */
 public class EmployeeScreen2 implements Screen {
 	
+	/**
+	 * return main or screen with FlightRought object passed into it
+	 */
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		
 		//call method from flight service that returns a list of flights

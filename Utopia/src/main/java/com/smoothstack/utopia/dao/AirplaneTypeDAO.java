@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.smoothstack.utopia.entities.AirplaneType;
-import com.smoothstack.utopia.entities.Airport;
-import com.smoothstack.utopia.entities.User;
 
 public class AirplaneTypeDAO extends BaseDAO<AirplaneType> {
 

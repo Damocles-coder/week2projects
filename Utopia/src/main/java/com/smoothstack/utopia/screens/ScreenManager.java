@@ -5,7 +5,7 @@ package com.smoothstack.utopia.screens;
 
 /**
  * @author dyltr
- * Class to create Pseudo Singletons of screens
+ * Class to create instances of each screen and allow access to them
  */
 public class ScreenManager {
 	private static Screen main;

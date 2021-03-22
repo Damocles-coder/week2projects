@@ -6,7 +6,6 @@ package com.smoothstack.utopia.screens;
 import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import com.smoothstack.utopia.entities.FlightRoute;
 import com.smoothstack.utopia.entities.FlightStatus;
 import com.smoothstack.utopia.entities.User;
@@ -14,12 +13,15 @@ import com.smoothstack.utopia.services.ServiceManager;
 
 /**
  * @author dyltr
- *
+ *Screen that allows cancellation of bookings
  */
 public class TravelerScreen5 implements Screen {
 	private FlightRoute f;
 	private User user;
 
+	/**
+	 * returns this or previous when canceling flight or exit
+	 */
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		FlightStatus fs = null;
 		try {
@@ -35,7 +37,6 @@ public class TravelerScreen5 implements Screen {
 			System.out.println(ServiceManager.getFlightService().getFlightInfo(f,fs));
 			return this;
 		case 2:
-			int classId=0;
 			//get flight_booking to get seat class
 			//decrement reserved seat depending on the class
 			//update flight

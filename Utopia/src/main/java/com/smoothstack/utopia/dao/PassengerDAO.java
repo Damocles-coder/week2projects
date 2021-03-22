@@ -5,9 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.smoothstack.utopia.entities.Booking;
-import com.smoothstack.utopia.entities.BookingPayment;
 import com.smoothstack.utopia.entities.Passenger;
 
 public class PassengerDAO extends BaseDAO<Passenger> {

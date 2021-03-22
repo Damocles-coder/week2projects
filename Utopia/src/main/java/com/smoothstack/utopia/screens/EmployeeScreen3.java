@@ -8,10 +8,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import com.smoothstack.utopia.entities.AirplaneType;
 import com.smoothstack.utopia.entities.Airport;
-import com.smoothstack.utopia.entities.Flight;
 import com.smoothstack.utopia.entities.FlightRoute;
 import com.smoothstack.utopia.entities.FlightStatus;
 import com.smoothstack.utopia.entities.Route;
@@ -24,6 +22,9 @@ import com.smoothstack.utopia.services.ServiceManager;
 public class EmployeeScreen3 implements Screen {
 	private FlightRoute f;
 
+	/**
+	 * returns this or previous screen
+	 */
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		System.out.println("\n1) View more details about the flight");
 		System.out.println("2) Update the details of the Flight");

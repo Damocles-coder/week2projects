@@ -14,11 +14,15 @@ import com.smoothstack.utopia.services.ServiceManager;
 
 /**
  * @author dyltr
- *
+ * class that gives out list of flights associated with users that are not active
  */
 public class TravelerScreen4 implements Screen {
 	private User user;
 
+	/**
+	 * return trav5 or previous
+	 * passes flightroute chosen and user into trav5
+	 */
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		System.out.println("\nPick the Flight you want to cancel:");
 		//call method from flight service that returns a list of flights
