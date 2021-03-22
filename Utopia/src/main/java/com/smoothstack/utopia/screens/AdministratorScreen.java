@@ -562,7 +562,7 @@ public class AdministratorScreen implements Screen {
 			case 2:
 				//update
 				scanner.nextLine();
-				System.out.println("Enter iata_id of Airport you wish to delete:");
+				System.out.println("Enter iata_id of Airport you wish to update:");
 				iataId = scanner.nextLine();
 				System.out.println("Enter what city you want it changed to:");
 				city = scanner.nextLine();
