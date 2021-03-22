@@ -22,16 +22,18 @@ public class FlightDAO extends BaseDAO<Flight> {
 	
 	public void create(Flight flight) throws ClassNotFoundException, SQLException {
 		save("insert into flight(id,route_id,airplane_id,departure_time,arrival_time,"
-		+ "reserved_seats,seat_price) values(?,?,?,?,?,?,?)", new Object[] {flight.getId(),
-		flight.getRouteId(),flight.getAirplaneId(),
-		flight.getDeparture(),flight.getArrival(),flight.getReservedSeats(),
-		flight.getSeatPrice()});
+		+ "reserved_seats,reserved_seats2,reserved_seats3,seat_price) values(?,?,?,?,?,?,?,?,?)", new Object[] {flight.getId(), 
+		flight.getRouteId(), flight.getAirplaneId(), 
+		flight.getDeparture(), flight.getArrival(),flight.getReservedSeats(), 
+		flight.getReservedSeats2(), flight.getReservedSeats3(), flight.getSeatPrice()});
 	}
 	
 	public void update(Flight flight) throws ClassNotFoundException, SQLException {
-		save("update flight set route_id=?, arrival_time=?, departure_time=? where "
-		+ "id=?",new Object[] { flight.getRouteId(),flight.getArrival().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm")),
-		flight.getDeparture().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm")), flight.getId() });
+		save("update flight set route_id=?, airplane_id=?,arrival_time=?, departure_time=?,reserved_seats=?,reserved_seats2=?,reserved_seats3=?,"
+				+ "seat_price=? where id=?",
+				new Object[] { flight.getRouteId(), flight.getAirplaneId(), flight.getArrival(),
+		flight.getDeparture(), flight.getReservedSeats(),
+		flight.getReservedSeats2(), flight.getReservedSeats3(), flight.getSeatPrice(), flight.getId() });
 	}
 	
 	public void delete(int id) throws ClassNotFoundException, SQLException {
@@ -49,6 +51,7 @@ public class FlightDAO extends BaseDAO<Flight> {
 			array.add(new Flight(rs.getInt("id"), rs.getInt("route_id"), rs.getInt("airplane_id"),
 					rs.getTimestamp("departure_time").toLocalDateTime(), 
 					rs.getTimestamp("arrival_time").toLocalDateTime(), rs.getInt("reserved_seats"),
+					rs.getInt("reserved_seats2"),rs.getInt("reserved_seats3"),
 					rs.getFloat("seat_price")));
 		}
 		return array;

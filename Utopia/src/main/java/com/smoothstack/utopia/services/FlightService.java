@@ -90,12 +90,33 @@ public class FlightService {
 		b1.append(" | Departure Time: "+ f.getDeparture().format(DateTimeFormatter.ofPattern("HH:mm")));
 		b1.append("Arrival Date: "+f.getArrival().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
 		b1.append(" | Arrival Time: "+ f.getArrival().format(DateTimeFormatter.ofPattern("HH:mm"))+"\n\n");
-		b1.append("Reserved seats: "+fs.getAvailableSeats());
+		b1.append("Available seats: \n");
+		b1.append("First -> "+(fs.getCapacity()-f.getReservedSeats())+"\n");
+		b1.append("Business -> "+(fs.getCapacity2()-f.getReservedSeats2())+"\n");
+		b1.append("Economy -> "+(fs.getCapacity3()-f.getReservedSeats3())+"\n");
 		return b1.toString();
 	}
 
 	public boolean changeSeats(Flight flight) {
 		return false;	
+	}
+	
+	public AirplaneType readAirplaneType(int id) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			AirplaneTypeDAO a1 = new AirplaneTypeDAO(conn);
+			return a1.read(id);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
 	}
 	
 	public boolean createAirport(Airport airport) throws SQLException {
@@ -126,6 +147,7 @@ public class FlightService {
 		Airport airport;
 		try {
 			conn = util.getConnection();
+			conn.setAutoCommit(false);
 			AirportDAO a1 = new AirportDAO(conn);
 			airport = a1.readByCode(id).get(0);
 			conn.commit();
@@ -148,6 +170,7 @@ public class FlightService {
 		Connection conn = null;
 		try {
 			conn = util.getConnection();
+			conn.setAutoCommit(false);
 			AirportDAO a1 = new AirportDAO(conn);
 			a1.update(newAirport);
 			conn.commit();
@@ -193,6 +216,7 @@ public class FlightService {
 		//read operation does not change data so there is no need to roll back
 		try {
 			conn = util.getConnection();
+			conn.setAutoCommit(false);
 			AirportDAO a1 = new AirportDAO(conn);
 			airports = a1.readAll();
 			return airports;

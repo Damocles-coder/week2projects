@@ -45,7 +45,7 @@ class FlightDAOTest {
 	@Test
 	void createAndDeleteTest() throws ClassNotFoundException, SQLException {
 		init();
-		Flight test=new Flight(1, 1, LocalDateTime.now(), LocalDateTime.now(), 10, 10);
+		Flight test=new Flight(1, 1, LocalDateTime.now(), LocalDateTime.now(),10,10,10,10);
 		Flight test2;
 		
 		assertDoesNotThrow(()->f1.delete(test.getId()));
@@ -64,7 +64,7 @@ class FlightDAOTest {
 	@Test
 	void updateTest() throws ClassNotFoundException, SQLException {
 		init();
-		Flight test=new Flight(1, 1, LocalDateTime.now(), LocalDateTime.now(), 10, 10);
+		Flight test=new Flight(1, 1, LocalDateTime.now(), LocalDateTime.now(), 10,10,10,10);
 		f1.delete(test.getId());
 		
 		f1.create(test);

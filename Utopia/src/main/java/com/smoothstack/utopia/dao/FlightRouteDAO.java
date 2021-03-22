@@ -5,7 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.smoothstack.utopia.entities.Airport;
+import com.smoothstack.utopia.entities.Flight;
 import com.smoothstack.utopia.entities.FlightRoute;
+import com.smoothstack.utopia.entities.Route;
 
 public class FlightRouteDAO extends BaseDAO<FlightRoute> {
 
@@ -44,12 +48,16 @@ public class FlightRouteDAO extends BaseDAO<FlightRoute> {
 	@Override
 	public List<FlightRoute> extractData(ResultSet rs) throws ClassNotFoundException, SQLException{
 		List<FlightRoute> array = new ArrayList<FlightRoute>();
+		Flight flight = null;
+		Route route = null;
 		while (rs.next()) {
-			array.add(new FlightRoute(rs.getInt("id"), rs.getInt("route_id"), rs.getInt("airplane_id"), 
-					rs.getTimestamp("departure_time").toLocalDateTime(), 
-					rs.getTimestamp("arrival_time").toLocalDateTime(), rs.getInt("f.reserved_seats"),
-					rs.getFloat("f.seat_price"),rs.getString("origin_id"), rs.getString("destination_id"),
-					rs.getString("origin_city"),rs.getString("destination_city")));
+			flight = new Flight(rs.getInt("id"), rs.getInt("route_id"), 
+					rs.getInt("airplane_id"), rs.getTimestamp("departure_time").toLocalDateTime(), 
+					rs.getTimestamp("arrival_time").toLocalDateTime(), rs.getInt("f.reserved_seats"), 
+					rs.getInt("f.reserved_seats2"), rs.getInt("f.reserved_seats3"), rs.getFloat("f.seat_price"));
+			route = new Route(new Airport(rs.getString("origin_id"),rs.getString("origin_city")),
+					new Airport(rs.getString("destination_id"),rs.getString("destination_city")));
+			array.add(new FlightRoute(flight, route));
 		}
 		return array;
 	}

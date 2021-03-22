@@ -276,14 +276,15 @@ public class AdministratorScreen implements Screen {
 		}
 		//Only create departure and arrival times as we lack a table for them
 		scanner.nextLine();
+		DateTimeFormatter pattern = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
 		System.out.println("Please enter an departure DateTime (MM/dd/yyyy HH:mm)");
-		LocalDateTime departure = LocalDateTime.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"));	
+		LocalDateTime departure = LocalDateTime.parse(scanner.nextLine(), pattern);	
 		System.out.println("Please enter an departure DateTime (MM/dd/yyyy HH:mm)");
-		LocalDateTime arrival = LocalDateTime.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"));
+		LocalDateTime arrival = LocalDateTime.parse(scanner.nextLine(), pattern);
 		System.out.println("Please enter airplane_id: ");
 		airplaneId = scanner.nextInt();
 		try {
-			ServiceManager.getFlightService().createFlight(new Flight(routeId, airplaneId, departure, arrival, 0, 0));
+			ServiceManager.getFlightService().createFlight(new Flight(routeId, airplaneId, departure, arrival, 0,0,0,0));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -302,7 +303,7 @@ public class AdministratorScreen implements Screen {
 			//create, used hash for pk
 			flightCreate(scanner);
 			break;
-		case 2:
+		case 3:
 			//delete by flight_id
 			fArray = null;
 			try {
@@ -323,7 +324,7 @@ public class AdministratorScreen implements Screen {
 			}
 			ServiceManager.getFlightService().deleteFlight(fArray.get(choice).getFlight());
 			break;
-		case 3:
+		case 2:
 			//update Flight
 			fArray = null;
 			try {
@@ -357,11 +358,11 @@ public class AdministratorScreen implements Screen {
 			for (FlightRoute i:fArray) {
 				System.out.println(ServiceManager.getFlightService().printRoute(i.getRoute(),count++));
 			}
-			System.out.println("Choose the Flight you wish to delete: ");
+			System.out.println("Choose the Flight you wish to read: ");
 			choice = scanner.nextInt();
 			try {
 				FlightStatus fs = ServiceManager.getFlightService().getFlightStatus(fArray.get(choice).getFlight());
-				ServiceManager.getFlightService().getFlightInfo(fArray.get(choice), fs);
+				System.out.println(ServiceManager.getFlightService().getFlightInfo(fArray.get(choice), fs));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

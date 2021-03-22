@@ -12,11 +12,9 @@ public class FlightRoute {
 	private Flight flight;
 	private Route route;
 	
-	public FlightRoute(int id, int routeId, int airplaneId, LocalDateTime departure, 
-			LocalDateTime arrival, int reservedSeats, float seatPrice, 
-			String source, String destination, String sourceCity, String destinationCity) {
-		flight = new Flight(id,routeId,airplaneId,departure,arrival,reservedSeats,seatPrice);
-		route = new Route(routeId,source,destination,sourceCity,destinationCity);
+	public FlightRoute(Flight flight, Route route) {
+		this.flight = flight;
+		this.route = route;
 	}
 	public Flight getFlight() {
 		return flight;

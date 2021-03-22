@@ -188,8 +188,7 @@ public class EmployeeScreen3 implements Screen {
 	}
 
 	/**
-	 * Assuming this changes the airplane capacity
-	 * if this had the seat classes, I would think it changes the proportions from non classed seats
+	 * Assuming this changes the airplane capacity of each class
 	 * @param scanner
 	 * @param fr
 	 * @param fs
@@ -202,25 +201,29 @@ public class EmployeeScreen3 implements Screen {
 		System.out.println("3) Economy");
 		System.out.println("4) Quit to cancel operation");
 		int capacity;
+		AirplaneType airplane = ServiceManager.getFlightService().readAirplaneType(fr.getFlight().getId());
 		//once view updates, will switch
 		switch(scanner.nextInt()) {
 		case 1:
 			System.out.println("Existing number of seats: " + fs.getCapacity());
 			System.out.println("Enter new number of seats:");
 			capacity = scanner.nextInt();
-			ServiceManager.getFlightService().updateAirplane(new AirplaneType(fs.getFlight().getAirplaneId(),capacity));
+			airplane.setCapacity(capacity);
+			ServiceManager.getFlightService().updateAirplane(airplane);
 			break;
 		case 2:
-			System.out.println("Existing number of seats: " + fs.getCapacity());
+			System.out.println("Existing number of seats: " + airplane.getCapacity3());
 			System.out.println("Enter new number of seats:");
 			capacity = scanner.nextInt();
-			ServiceManager.getFlightService().updateAirplane(new AirplaneType(fs.getFlight().getAirplaneId(),capacity));
+			airplane.setCapacity2(capacity);
+			ServiceManager.getFlightService().updateAirplane(airplane);
 			break;
 		case 3:
-			System.out.println("Existing number of seats: " + fs.getCapacity());
+			System.out.println("Existing number of seats: " + airplane.getCapacity3());
 			System.out.println("Enter new number of seats:");
 			capacity = scanner.nextInt();
-			ServiceManager.getFlightService().updateAirplane(new AirplaneType(fs.getFlight().getAirplaneId(),capacity));
+			airplane.setCapacity2(capacity);
+			ServiceManager.getFlightService().updateAirplane(airplane);
 			break;
 		default:
 			return;

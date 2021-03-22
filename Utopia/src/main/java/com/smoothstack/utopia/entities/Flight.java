@@ -9,21 +9,41 @@ public class Flight {
 	private LocalDateTime departure;
 	private LocalDateTime arrival;
 	private int reservedSeats;
+	private int reservedSeats2;
+	private int reservedSeats3;
 	private float seatPrice;
 	
 	public Flight(int id, int routeId, int airplaneId, LocalDateTime departure, LocalDateTime arrival, 
-			int reservedSeats, float seatPrice) {
+			int reservedSeats, int reservedSeats2, int reservedSeats3, float seatPrice) {
 		this.id=id;
 		this.routeId=routeId;
 		this.setAirplaneId(airplaneId);
 		this.departure = departure;
 		this.arrival = arrival;
-		this.setReservedSeats(reservedSeats);
+		this.reservedSeats=reservedSeats;
 		this.seatPrice = seatPrice;
+		this.reservedSeats2=reservedSeats2;
+		this.reservedSeats3=reservedSeats3;
 	}
 	
+	public int getReservedSeats2() {
+		return reservedSeats2;
+	}
+
+	public void setReservedSeats2(int reservedSeats2) {
+		this.reservedSeats2 = reservedSeats2;
+	}
+
+	public int getReservedSeats3() {
+		return reservedSeats3;
+	}
+
+	public void setReservedSeats3(int reservedSeats3) {
+		this.reservedSeats3 = reservedSeats3;
+	}
+
 	public Flight(int routeId, int airplaneId, LocalDateTime departure, LocalDateTime arrival, 
-			int reservedSeats, float seatPrice) {
+			int reservedSeats, int reservedSeats2, int reservedSeats3, float seatPrice) {
 		this.routeId=routeId;
 		this.setAirplaneId(airplaneId);
 		this.departure = departure;
@@ -31,6 +51,8 @@ public class Flight {
 		this.setReservedSeats(reservedSeats);
 		this.seatPrice = seatPrice;
 		id = this.hashCode();
+		this.reservedSeats2=reservedSeats2;
+		this.reservedSeats3=reservedSeats3;
 	}
 	
 	/**
