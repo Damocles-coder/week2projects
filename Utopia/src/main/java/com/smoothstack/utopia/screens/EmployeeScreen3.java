@@ -116,7 +116,6 @@ public class EmployeeScreen3 implements Screen {
 			}
 			routeId = ServiceManager.getFlightService().findRoute(new Route(origin,destination)).getId();
 			fr.getFlight().setRouteId(routeId);
-			System.out.print(routeId);
 			changed=true;
 		}
 		String[] dateTime=new String[2];
@@ -148,6 +147,7 @@ public class EmployeeScreen3 implements Screen {
 			fr.getFlight().setDeparture(LocalDateTime.parse(dateTime[0]+" "+dateTime[1],
 					DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm")));
 			changed=true;
+			System.out.println(fr.getFlight().getDeparture().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm")));
 		}
 		
 		System.out.println("Please enter new Arival Date (MM/dd/yyyy) or enter N/A for no change: ");
@@ -155,7 +155,6 @@ public class EmployeeScreen3 implements Screen {
 		if(!"N/A".equalsIgnoreCase(temp)) {
 			dateTime[0]=temp;
 		}
-		System.out.println("Please enter new Arrival Time (HH:mm) or enter N/A for no change: ");
 		temp = scanner.nextLine();
 		if(!"N/A".equalsIgnoreCase(temp)) {
 			dateTime[1]=temp;
@@ -163,13 +162,13 @@ public class EmployeeScreen3 implements Screen {
 		if(dateTime[0]!=null||dateTime[1]!=null) {
 			if(dateTime[0]==null) {
 				//gets date from current arrival
-				dateTime[0]=fr.getFlight().getDeparture().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+				dateTime[0]=fr.getFlight().getArrival().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 			}
 			if(dateTime[1]==null) {
 				//gets time from current arrival
-				dateTime[1]=fr.getFlight().getDeparture().format(DateTimeFormatter.ofPattern("HH:mm"));
+				dateTime[1]=fr.getFlight().getArrival().format(DateTimeFormatter.ofPattern("HH:mm"));
 			}
-			fr.getFlight().setDeparture(LocalDateTime.parse(dateTime[0]+" "+dateTime[1],
+			fr.getFlight().setArrival(LocalDateTime.parse(dateTime[0]+" "+dateTime[1],
 					DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm")));
 			changed=true;
 		}

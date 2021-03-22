@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,16 +22,16 @@ public class FlightDAO extends BaseDAO<Flight> {
 	
 	public void create(Flight flight) throws ClassNotFoundException, SQLException {
 		save("insert into flight(id,route_id,airplane_id,departure_time,arrival_time,"
-				+ "reserved_seats,seat_price) values(?,?,?,?,?,?,?)", new Object[] {flight.getId(),
-						flight.getRouteId(),flight.getAirplaneId(),
-						flight.getDeparture(),flight.getArrival(),flight.getReservedSeats(),
-						flight.getSeatPrice()});
+		+ "reserved_seats,seat_price) values(?,?,?,?,?,?,?)", new Object[] {flight.getId(),
+		flight.getRouteId(),flight.getAirplaneId(),
+		flight.getDeparture(),flight.getArrival(),flight.getReservedSeats(),
+		flight.getSeatPrice()});
 	}
 	
 	public void update(Flight flight) throws ClassNotFoundException, SQLException {
 		save("update flight set route_id=?, arrival_time=?, departure_time=? where "
-				+ "id=?",new Object[] { flight.getRouteId(),flight.getArrival(),
-						flight.getDeparture(), flight.getId() });
+		+ "id=?",new Object[] { flight.getRouteId(),flight.getArrival().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm")),
+		flight.getDeparture().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm")), flight.getId() });
 	}
 	
 	public void delete(int id) throws ClassNotFoundException, SQLException {

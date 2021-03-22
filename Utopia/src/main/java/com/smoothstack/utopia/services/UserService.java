@@ -21,10 +21,91 @@ public class UserService {
 		this.util = util;
 	}
 	
+	public boolean createTraveler(User user) throws SQLException {
+		Connection conn=null;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			UserDAO u1 = new UserDAO(conn);
+			u1.createTraveler(user);
+			conn.commit();
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+	}
+	
+	public boolean createEmployee(User user) throws SQLException {
+		Connection conn=null;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			UserDAO u1 = new UserDAO(conn);
+			u1.createEmployee(user);
+			conn.commit();
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+	}
+	
+	public boolean deleteEmployee(String email) throws SQLException {
+		Connection conn=null;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			UserDAO u1 = new UserDAO(conn);
+			u1.deleteEmployee(email);
+			conn.commit();
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+	}
+	
+	public boolean deleteTraveler(String email) throws SQLException {
+		Connection conn=null;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			UserDAO u1 = new UserDAO(conn);
+			u1.deleteTraveler(email);
+			conn.commit();
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+	}
+	
 	public boolean updateBooking(Booking booking) throws SQLException {
 		Connection conn=null;
 		try {
 			conn = util.getConnection();
+			conn.setAutoCommit(false);
 			BookingDAO b1 = new BookingDAO(conn);
 			b1.update(booking);
 			conn.commit();
@@ -100,5 +181,45 @@ public class UserService {
 		}
 		System.out.println("User does not Exist");
 		return false;
+	}
+
+	public User read(String email) throws SQLException {
+		Connection conn=null;
+		User user;
+		try {
+			conn = util.getConnection();
+			UserDAO u1 = new UserDAO(conn);
+			user=u1.read(email);
+			return user;
+		}
+		catch(Exception e) {
+			return null;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+	}
+
+	public boolean updateUser(User user) throws SQLException{
+		// TODO Auto-generated method stub
+		Connection conn=null;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			UserDAO u1 = new UserDAO(conn);
+			u1.update(user);
+			conn.commit();
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
 	}
 }

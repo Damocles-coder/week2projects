@@ -8,9 +8,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import com.smoothstack.utopia.entities.Flight;
 import com.smoothstack.utopia.entities.FlightRoute;
-import com.smoothstack.utopia.entities.Route;
 import com.smoothstack.utopia.services.ServiceManager;
 
 /**
