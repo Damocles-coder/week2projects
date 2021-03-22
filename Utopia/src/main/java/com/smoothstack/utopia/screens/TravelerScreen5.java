@@ -17,13 +17,13 @@ import com.smoothstack.utopia.services.ServiceManager;
  */
 public class TravelerScreen5 implements Screen {
 	private FlightRoute f;
+	User user;
 
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		FlightStatus fs = null;
 		try {
 			fs = ServiceManager.getFlightService().getFlightStatus(f.getFlight());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("1) View Flight Details");
@@ -37,12 +37,35 @@ public class TravelerScreen5 implements Screen {
 			return this;
 		case 2:
 			//create new booking with flight_booking class=1
+			if (fs.getCapacity()-f.getFlight().getReservedSeats()==0) {
+				System.out.println("No seats available");
+				return this;
+			}
+			//increment reserved_seat
+			//update flight
+			//booking id auto increments
+			//create booking
+			//create flight booking
+			//create booking payment with flight id
+			//create user booking with user id
+			//create passenger auto increments with user information for simplicity sake
+			User user = ServiceManager.getUserService().read(null)
+			ServiceManager.getFlightService()fs.bookSeat();
+			
 			break;
 		case 3:
 			//create new booking with flight_booking class=2
+			if (fs.getCapacity2()-f.getFlight().getReservedSeats2()==0) {
+				System.out.println("No seats available");
+				return this;
+			}
 			break;
 		case 4:
 			//create new booking with flight_booking class=1
+			if (fs.getCapacity3()-f.getFlight().getReservedSeats3()==0) {
+				System.out.println("No seats available");
+				return this;
+			}
 			break;
 		case 5:
 			return ScreenManager.getTRAV1();

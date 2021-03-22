@@ -25,6 +25,17 @@ public class Passenger {
 		this.id = id;
 	}
 	
+	public Passenger(int bookingId, String givenName, String familyName, LocalDate dob,
+			String gender, String address) {
+		this.address = address;
+		this.bookingId = bookingId;
+		this.dob = dob;
+		this.familyName = familyName;
+		this.gender = gender;
+		this.givenName = givenName;
+		this.id = 0;
+	}
+
 	public int getId() {
 		return id;
 	}

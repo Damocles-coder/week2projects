@@ -2,23 +2,34 @@ package com.smoothstack.utopia.services;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.smoothstack.utopia.dao.AirplaneTypeDAO;
 import com.smoothstack.utopia.dao.AirportDAO;
+import com.smoothstack.utopia.dao.BookingDAO;
+import com.smoothstack.utopia.dao.BookingPaymentDAO;
+import com.smoothstack.utopia.dao.BookingUserDAO;
+import com.smoothstack.utopia.dao.FlightBookingDAO;
 import com.smoothstack.utopia.dao.FlightDAO;
 import com.smoothstack.utopia.dao.FlightRouteDAO;
 import com.smoothstack.utopia.dao.FlightStatusDAO;
+import com.smoothstack.utopia.dao.PassengerDAO;
 import com.smoothstack.utopia.dao.RouteDAO;
 import com.smoothstack.utopia.entities.AirplaneType;
 import com.smoothstack.utopia.entities.Airport;
+import com.smoothstack.utopia.entities.Booking;
+import com.smoothstack.utopia.entities.BookingPayment;
+import com.smoothstack.utopia.entities.BookingUser;
 import com.smoothstack.utopia.entities.Flight;
+import com.smoothstack.utopia.entities.FlightBooking;
 import com.smoothstack.utopia.entities.FlightRoute;
 import com.smoothstack.utopia.entities.FlightStatus;
 import com.smoothstack.utopia.entities.Passenger;
 import com.smoothstack.utopia.entities.Route;
+import com.smoothstack.utopia.entities.User;
 import com.smoothstack.utopia.jdbc.Util;
 
 /**
@@ -193,6 +204,7 @@ public class FlightService {
 		Connection conn = null;
 		try {
 			conn = util.getConnection();
+			conn.setAutoCommit(false);
 			AirportDAO a1 = new AirportDAO(conn);
 			a1.delete(new Airport(id,null));
 			conn.commit();
@@ -230,65 +242,6 @@ public class FlightService {
 				conn.close();
 			}
 		}
-	}
-	
-	public boolean createPassenger(Passenger passenger) {
-		//create operation in Passenger
-		//can only create when booking already exists
-		//get flight from booking joins
-		//modify flight object
-		//update flight object
-//		try {
-//			
-//		}
-//		catch(SQLException|ClassNotFoundException e) {
-//			
-//		}
-		return false;
-	}
-	
-	public List<Passenger> readPassenger(int id) {
-		//read operation in Passenger
-		return null;
-	}
-	
-	public boolean updatePassenger(int id, Passenger passenger) {
-		//update operation in AirportDao
-		return false;
-	}
-	
-	public boolean deletePassenger(int id) {
-		//delete operation in Passenger
-		//you can have a booking with no passengers
-		//get flight from booking joins
-		//modify flight object
-		//deleteSeat(flightStatus,1)
-		return false;
-	}
-	
-	public boolean addSeat(FlightStatus modified, int change) {
-		//change seating by set number
-		//gets the flight object from flight status
-		//change seats using getter and setter
-		return false;
-	}
-	
-	public FlightStatus readSeat(int flightId) {
-		//read operation in FlightStatusDAO
-		return null;
-	}
-	
-	public boolean updateSeat(FlightStatus changed) {
-		//update operation in AirportDao
-		//gets flight object from flight status
-		//checks if requested reserved seats is less than or equal to capacity
-		//Saves flight in flight DAO
-		return false;
-	}
-	
-	public boolean deleteSeat(FlightStatus modified, int change) {
-		//same as add seat, but checks if seats does not fall under 0
-		return false;
 	}
 
 	public FlightStatus getFlightStatus(Flight flight) throws SQLException {
@@ -431,6 +384,70 @@ public class FlightService {
 			conn.setAutoCommit(false);
 			FlightDAO f1 = new FlightDAO(conn);
 			f1.delete(flight.getId());
+			conn.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		return true;
+	}
+
+	public boolean bookSeat(User user, FlightRoute f, int classId) throws SQLException {
+		Connection conn = null;
+		Booking b = new Booking(false);
+		BookingPayment bp;
+		BookingUser bu;
+		FlightBooking fb;
+		Passenger p;
+		int bookingId;
+		switch(classId) {
+		case 1:
+			f.getFlight().setReservedSeats(f.getFlight().getReservedSeats()+1);
+			break;
+		case 2:
+			f.getFlight().setReservedSeats2(f.getFlight().getReservedSeats2()+1);
+			break;
+		case 3:
+			f.getFlight().setReservedSeats(f.getFlight().getReservedSeats()+1);
+			break;
+		}
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			BookingDAO b1 = new BookingDAO(conn);
+			BookingPaymentDAO bp1 = new BookingPaymentDAO(conn);
+			BookingUserDAO bu1 = new BookingUserDAO(conn);
+			PassengerDAO p1 = new PassengerDAO(conn);
+			FlightBookingDAO fb1 = new FlightBookingDAO(conn);
+			FlightDAO f1 = new FlightDAO(conn);
+			//insert and read booking
+			bookingId = b1.create(b);
+			
+			//add passenger birthday/gender/address preset for now
+			p = new Passenger(bookingId, user.getGivenName(), user.getFamilyName(), LocalDate.of(1996, 5, 15), "n/a", "n/a");
+			
+			//not sure what stripe id is so I'll insert this
+			bp = new BookingPayment(bookingId,"",false);
+			bp1.create(bp);
+			
+			//insert booking user
+			bu = new BookingUser(b.getId(),user.getId());
+			bu1.create(bu);
+			
+			//create flight_booking
+			fb = new FlightBooking(f.getFlight().getId(), bookingId);
+			fb1.create(fb);
+			
+			//update flight seating
+			f1.update(f.getFlight());
+			
 			conn.commit();
 		}
 		catch(Exception e) {

@@ -49,6 +49,9 @@ public class AdministratorScreen implements Screen {
 		else if (type==7) {
 			overrideTicket(scanner);
 		}
+		else if (type==8) {
+			return ScreenManager.getMain();
+		}
 		return ScreenManager.getAdmin();
 	}
 	
@@ -587,6 +590,7 @@ public class AdministratorScreen implements Screen {
 				email = scanner.nextLine();
 				try {
 					user = ServiceManager.getUserService().read(email);
+					System.out.println("Traveler number: "+user.getId());
 					System.out.println("Email: "+user.getEmail());
 					System.out.println("Username: "+user.getUsername());
 					System.out.println("Password: "+user.getPassword());
@@ -714,6 +718,7 @@ public class AdministratorScreen implements Screen {
 				email = scanner.nextLine();
 				try {
 					user = ServiceManager.getUserService().read(email);
+					System.out.println("Employee number: "+user.getId());
 					System.out.println("Email: "+user.getEmail());
 					System.out.println("Username: "+user.getUsername());
 					System.out.println("Password: "+user.getPassword());

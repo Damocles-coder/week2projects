@@ -37,10 +37,10 @@ public class TravelerScreen2 implements Screen {
 		System.out.println(count+") Quit to previous");
 		int choice = scanner.nextInt();
 		if(choice==count) {
-			return ScreenManager.getEMP1();
+			return ScreenManager.getTRAV1();
 		}
 		else if (choice>=1&&choice<count) {
-			Screen temp = ScreenManager.getEMP3();
+			Screen temp = ScreenManager.getTRAV3();
 			((TravelerScreen3)temp).setF(array.get(choice-1));
 			return temp;
 		}
