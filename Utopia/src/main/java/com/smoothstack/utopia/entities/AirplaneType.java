@@ -37,6 +37,13 @@ public class AirplaneType {
 		this.capacity3 = capacity3;
 	}
 	
+	public AirplaneType(int capacity, int capacity2, int capacity3) {
+		this.capacity = capacity;
+		this.capacity2 = capacity2;
+		this.capacity3 = capacity3;
+		id=0;
+	}
+
 	public int getId() {
 		return id;
 	}

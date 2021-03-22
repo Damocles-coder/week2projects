@@ -10,6 +10,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.smoothstack.utopia.entities.AirplaneType;
 import com.smoothstack.utopia.entities.Airport;
 import com.smoothstack.utopia.entities.Flight;
 import com.smoothstack.utopia.entities.FlightRoute;
@@ -405,19 +406,78 @@ public class AdministratorScreen implements Screen {
 	}
 	
 	private void seatCrud(Scanner scanner) {
+		List<AirplaneType> array = null;
+		AirplaneType airplane = null;
+		int cap1;
+		int cap2;
+		int cap3;
+		int choice;
+		try {
+			array = ServiceManager.getFlightService().readAllAirplaneType();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		for (AirplaneType a:array) {
+			System.out.println(a.getId()+": Capacity1-"+a.getCapacity()+" | Capacity2-"+a.getCapacity2()+" | Capacity3-"+a.getCapacity3());
+		}
 		System.out.println("1) Add");
 		System.out.println("2) Update");
 		System.out.println("3) Delete");
 		System.out.println("4) Read");
 		switch(scanner.nextInt()) {
 		case 1:
+			//create
+			System.out.println("Enter first Class capacity");
+			cap1=scanner.nextInt();
+			System.out.println("Enter Business Class capacity");
+			cap2=scanner.nextInt();
+			System.out.println("Enter Economy Class capacity");
+			cap3=scanner.nextInt();
+			airplane = new AirplaneType(cap1, cap2, cap3);
+			try {
+				ServiceManager.getFlightService().createAiplane(airplane);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			break;
 		case 2:
+			//update
+			System.out.println("Enter Airplane ID");
+			choice=scanner.nextInt();
+			System.out.println("Enter new first Class capacity");
+			cap1=scanner.nextInt();
+			System.out.println("Enter new Business Class capacity");
+			cap2=scanner.nextInt();
+			System.out.println("Enter new Economy Class capacity");
+			cap3=scanner.nextInt();
+			airplane = new AirplaneType(choice, cap1, cap2, cap3);
+			try {
+				ServiceManager.getFlightService().updateAirplane(airplane);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			break;
 		case 3:
+			//delete
+			System.out.println("Enter Airplane ID of plane you want to delete");
+			choice=scanner.nextInt();
+			try {
+				ServiceManager.getFlightService().deleteAirplane(choice);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			break;
 		case 4:
-			
+			//read
+			System.out.println("Enter Airplane ID of plane you want to read");
+			choice=scanner.nextInt();
+			try {
+				airplane=ServiceManager.getFlightService().readAirplaneType(choice);
+				System.out.println(airplane.getId()+": Capacity1-"+airplane.getCapacity()+" | Capacity2-"+airplane.getCapacity2()+" | Capacity3-"+airplane.getCapacity3());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
 		}
 	}
 	

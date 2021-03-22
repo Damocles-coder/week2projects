@@ -16,6 +16,11 @@ public class AirplaneTypeDAO extends BaseDAO<AirplaneType> {
 		super(conn);
 	}
 	
+	public void create(AirplaneType a) throws SQLException, ClassNotFoundException {
+		save("insert into airplane_type(max_capacity, max_capacity2, max_capacity3) values(?,?,?)",
+				new Object[] {a.getCapacity(),a.getCapacity2(),a.getCapacity3()});
+	}
+	
 	public AirplaneType read(int id) throws SQLException, ClassNotFoundException {
 		return get("select * from airplane_type where id=?",new Object[] {id}).get(0);
 	}
@@ -35,7 +40,13 @@ public class AirplaneTypeDAO extends BaseDAO<AirplaneType> {
 		}
 		return array;
 	}
-	
-	
+
+	public List<AirplaneType> readAll() throws SQLException, ClassNotFoundException {
+		return get("select * from airplane_type",new Object[] {});
+	}
+
+	public void delete(int choice) throws ClassNotFoundException, SQLException {
+		save("delete from airplane_type where id=?", new Object[] {choice});
+	}
 
 }

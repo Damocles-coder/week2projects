@@ -596,4 +596,66 @@ public class FlightService {
 		}
 		return true;
 	}
+
+	public List<AirplaneType> readAllAirplaneType() throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			AirplaneTypeDAO a1 = new AirplaneTypeDAO(conn);
+			return a1.readAll();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+	}
+
+	public boolean createAiplane(AirplaneType airplane) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			AirplaneTypeDAO a1 = new AirplaneTypeDAO(conn);
+			a1.create(airplane);
+			conn.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		return true;
+	}
+
+	public boolean deleteAirplane(int choice) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			AirplaneTypeDAO a1 = new AirplaneTypeDAO(conn);
+			a1.delete(choice);
+			conn.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		return true;
+	}
 }
