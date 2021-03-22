@@ -99,7 +99,7 @@ public class FlightService {
 		b1.append(" | Arrival Airport: "+r.getDestination().getIataId()+"\n");
 		b1.append("Departure Date: "+f.getDeparture().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
 		b1.append(" | Departure Time: "+ f.getDeparture().format(DateTimeFormatter.ofPattern("HH:mm")));
-		b1.append("Arrival Date: "+f.getArrival().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+		b1.append("\nArrival Date: "+f.getArrival().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
 		b1.append(" | Arrival Time: "+ f.getArrival().format(DateTimeFormatter.ofPattern("HH:mm"))+"\n\n");
 		b1.append("Available seats: \n");
 		b1.append("First -> "+(fs.getCapacity()-f.getReservedSeats())+"\n");
@@ -401,7 +401,7 @@ public class FlightService {
 
 	public boolean bookSeat(User user, FlightRoute f, int classId) throws SQLException {
 		Connection conn = null;
-		Booking b = new Booking(false);
+		Booking b = new Booking(true);
 		BookingPayment bp;
 		BookingUser bu;
 		FlightBooking fb;
@@ -466,10 +466,9 @@ public class FlightService {
 
 	public boolean unbookSeat(User user, FlightRoute f) throws SQLException {
 		Connection conn = null;
-		Booking b = new Booking(false);
+		Booking b;
 		BookingPayment bp;
 		FlightBooking fb;
-		int bookingId = 0;
 		try {
 			conn = util.getConnection();
 			conn.setAutoCommit(false);
@@ -479,7 +478,7 @@ public class FlightService {
 			BookingPaymentDAO bp1 = new BookingPaymentDAO(conn);
 			
 			b=b1.read(user.getId(),f.getFlight().getId());
-			if(b.isActive()) {
+			if(!b.isActive()) {
 				return false;
 			}
 			
@@ -500,6 +499,84 @@ public class FlightService {
 			}
 			b.setActive(false);
 			bp.setRefunded(true);
+			b1.update(b);
+			f1.update(f.getFlight());
+			bp1.update(bp);
+			
+			//delete passenger may be needed
+			conn.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		return true;
+	}
+
+	public List<FlightRoute> getFlightListFilteredCancel(int id) throws SQLException {
+		Connection conn = null;
+		List<FlightRoute> array;
+		//read operation does not change data so there is no need to roll back
+		try {
+			conn = util.getConnection();
+			FlightRouteDAO f1 = new FlightRouteDAO(conn);
+			array = f1.readAllFilterCancel(id);
+			return array;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+	}
+
+	public boolean rebookSeat(User user, FlightRoute f) throws SQLException {
+		Connection conn = null;
+		Booking b;
+		BookingPayment bp;
+		FlightBooking fb;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			FlightBookingDAO fb1 = new FlightBookingDAO(conn);
+			BookingDAO b1 = new BookingDAO(conn);
+			FlightDAO f1 = new FlightDAO(conn);
+			BookingPaymentDAO bp1 = new BookingPaymentDAO(conn);
+			
+			b=b1.read(user.getId(),f.getFlight().getId());
+			if(b.isActive()) {
+				return false;
+			}
+			
+			fb=fb1.read(user.getId(),f.getFlight().getId());
+			//read from inner joining flight and user
+			bp=bp1.read(user.getId(),f.getFlight().getId());
+			
+			//increments seat belonging to its class
+			switch(fb.getClassId()) {
+			case 1:
+				f.getFlight().setReservedSeats(f.getFlight().getReservedSeats()+1);
+				break;
+			case 2:
+				f.getFlight().setReservedSeats2(f.getFlight().getReservedSeats2()+1);
+				break;
+			case 3:
+				f.getFlight().setReservedSeats3(f.getFlight().getReservedSeats3()+1);
+				break;
+			}
+			
+			b.setActive(true);
+			bp.setRefunded(false);
 			b1.update(b);
 			f1.update(f.getFlight());
 			bp1.update(bp);

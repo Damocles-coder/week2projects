@@ -147,7 +147,6 @@ public class EmployeeScreen3 implements Screen {
 			fr.getFlight().setDeparture(LocalDateTime.parse(dateTime[0]+" "+dateTime[1],
 					DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm")));
 			changed=true;
-			System.out.println(fr.getFlight().getDeparture().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm")));
 		}
 		
 		System.out.println("Please enter new Arival Date (MM/dd/yyyy) or enter N/A for no change: ");
@@ -155,6 +154,7 @@ public class EmployeeScreen3 implements Screen {
 		if(!"N/A".equalsIgnoreCase(temp)) {
 			dateTime[0]=temp;
 		}
+		System.out.println("Please enter new Arrival Time (HH:mm) or enter N/A for no change: ");
 		temp = scanner.nextLine();
 		if(!"N/A".equalsIgnoreCase(temp)) {
 			dateTime[1]=temp;
@@ -222,7 +222,7 @@ public class EmployeeScreen3 implements Screen {
 			System.out.println("Existing number of seats: " + airplane.getCapacity3());
 			System.out.println("Enter new number of seats:");
 			capacity = scanner.nextInt();
-			airplane.setCapacity2(capacity);
+			airplane.setCapacity3(capacity);
 			ServiceManager.getFlightService().updateAirplane(airplane);
 			break;
 		default:

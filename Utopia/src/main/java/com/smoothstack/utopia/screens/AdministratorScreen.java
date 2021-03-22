@@ -173,8 +173,39 @@ public class AdministratorScreen implements Screen {
 	
 	private void overrideTicket(Scanner scanner) throws InputMismatchException {
 		//set booking is_active to true
-		System.out.println("What ticket number would you like to override?: ");
-		int id = scanner.nextInt();
+		List<User> users=null;
+		List<FlightRoute> flights=null;
+		User user=null;
+		try {
+			users = ServiceManager.getUserService().readAllTravelers();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		int count=0;
+		for (User u:users) {
+			System.out.println((count++) +") Username: "+ u.getUsername());
+		}
+		System.out.println("What user would you like to look up?:");
+		int choice = scanner.nextInt();
+		user=users.get(choice);
+		//list of canceled flights
+		try {
+			flights=ServiceManager.getFlightService().getFlightListFilteredCancel(user.getId());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		count=0;
+		for(FlightRoute f:flights) {
+			System.out.println(ServiceManager.getFlightService().printRoute(f.getRoute(),count++));
+		}
+		System.out.println("What flight would you like to override?: ");
+		choice = scanner.nextInt();
+		try {
+			ServiceManager.getFlightService().rebookSeat(user, flights.get(choice));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

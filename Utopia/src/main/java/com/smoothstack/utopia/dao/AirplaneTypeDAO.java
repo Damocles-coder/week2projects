@@ -22,8 +22,8 @@ public class AirplaneTypeDAO extends BaseDAO<AirplaneType> {
 
 	
 	public void update(AirplaneType a1) throws SQLException, ClassNotFoundException {
-		save("update airplane_type set max_capacity=?, max_capacity2=?, max_capacity3 "
-				+ "where id=?",new Object[] {a1.getCapacity(),a1.getId()});
+		save("update airplane_type set max_capacity=?, max_capacity2=?, max_capacity3=? "
+				+ "where id=?",new Object[] {a1.getCapacity(),a1.getCapacity2(),a1.getCapacity3(),a1.getId()});
 	}
 
 	@Override

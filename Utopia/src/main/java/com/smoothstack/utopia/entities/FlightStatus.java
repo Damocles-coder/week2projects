@@ -11,7 +11,6 @@ public class FlightStatus {
 	private int capacity2;
 	private int capacity3;
 	public FlightStatus(Flight flight, int capacity, int capacity2, int capacity3) {
-		super();
 		this.flight = flight;
 		this.capacity = capacity;
 		this.capacity2 = capacity2;

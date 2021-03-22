@@ -33,7 +33,7 @@ public class FlightStatusDAO extends BaseDAO<FlightStatus> {
 					rs.getTimestamp("arrival_time").toLocalDateTime(), rs.getInt("reserved_seats"),
 					rs.getInt("reserved_seats2"),rs.getInt("reserved_seats3"),
 					rs.getFloat("seat_price")), rs.getInt("max_capacity"), rs.getInt("max_capacity2"), 
-					rs.getInt("max_capacity")));
+					rs.getInt("max_capacity3")));
 		}
 		return array;
 	}
