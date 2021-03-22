@@ -19,7 +19,7 @@ public class BookingDAO extends BaseDAO<Booking> {
 	}
 	
 	public int create(Booking booking) throws ClassNotFoundException, SQLException{
-		return saveReturnPK("insert into booking(is_active,confirmation_code),values(?,?)", new Object[] {booking.isActive(), booking.getConfirmationCode()});
+		return saveReturnPK("insert into booking(is_active,confirmation_code) values(?,?)", new Object[] {booking.isActive(), booking.getConfirmationCode()});
 	}
 	
 	/**

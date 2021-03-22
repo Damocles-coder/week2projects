@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import com.smoothstack.utopia.entities.FlightRoute;
 import com.smoothstack.utopia.entities.FlightStatus;
+import com.smoothstack.utopia.entities.User;
 import com.smoothstack.utopia.services.ServiceManager;
 
 /**
@@ -17,7 +18,7 @@ import com.smoothstack.utopia.services.ServiceManager;
  */
 public class TravelerScreen5 implements Screen {
 	private FlightRoute f;
-	User user;
+	private User user;
 
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		FlightStatus fs = null;
@@ -49,8 +50,6 @@ public class TravelerScreen5 implements Screen {
 			//create booking payment with flight id
 			//create user booking with user id
 			//create passenger auto increments with user information for simplicity sake
-			User user = ServiceManager.getUserService().read(null)
-			ServiceManager.getFlightService()fs.bookSeat();
 			
 			break;
 		case 3:
@@ -82,6 +81,14 @@ public class TravelerScreen5 implements Screen {
 
 	public void setF(FlightRoute f) {
 		this.f = f;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

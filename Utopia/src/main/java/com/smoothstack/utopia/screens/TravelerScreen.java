@@ -6,12 +6,14 @@ package com.smoothstack.utopia.screens;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.smoothstack.utopia.entities.User;
+
 /**
  * @author dyltr
  *
  */
 public class TravelerScreen implements Screen {
-	private int id;
+	private User user;
 
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		System.out.println("\n1) Book a Ticket");
@@ -21,11 +23,11 @@ public class TravelerScreen implements Screen {
 		switch(scanner.nextInt()) {
 		case 1:
 			temp = ScreenManager.getTRAV2();
-			((TravelerScreen2)temp).setId(id);
+			((TravelerScreen2)temp).setUser(user);
 			return ScreenManager.getTRAV2();
 		case 2:
 			temp = ScreenManager.getTRAV4();
-			((TravelerScreen4)temp).setId(id);
+			((TravelerScreen4)temp).setUser(user);
 			return temp;
 		case 3:
 			return ScreenManager.getMain();
@@ -35,12 +37,12 @@ public class TravelerScreen implements Screen {
 		}
 	}
 
-	public int getId() {
-		return id;
+	public User getUser() {
+		return user;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

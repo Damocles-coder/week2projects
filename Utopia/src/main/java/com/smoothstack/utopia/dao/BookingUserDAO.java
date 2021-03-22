@@ -17,7 +17,7 @@ public class BookingUserDAO extends BaseDAO<BookingUser> {
 	}
 	
 	public void create(BookingUser bu) throws ClassNotFoundException, SQLException{
-		save("insert into booking_user(booking_id,user_id),values(?,?)", new Object[] {bu.getBookingId(), bu.getUserId()});
+		save("insert into booking_user(booking_id,user_id) values(?,?)", new Object[] {bu.getBookingId(), bu.getUserId()});
 	}
 	
 	/**

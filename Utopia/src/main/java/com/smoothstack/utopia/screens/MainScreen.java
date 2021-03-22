@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.smoothstack.utopia.entities.User;
 import com.smoothstack.utopia.services.ServiceManager;
 
 /**
@@ -38,14 +39,16 @@ public class MainScreen implements Screen {
 			System.out.println("\nEnter the your Membership Number:");
 			//check if valid
 			int key = scanner.nextInt();
+			User user = null;
 			try {
-				if (!ServiceManager.getUserService().checkKey(key)) {
+				user = ServiceManager.getUserService().checkKey(key);
+				if (user==null) {
 					return this;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			((TravelerScreen)temp).setId(key);
+			((TravelerScreen)temp).setUser(user);
 			return temp;
 		default:
 			System.out.println("Invalid input");

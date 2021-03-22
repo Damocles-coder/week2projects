@@ -17,7 +17,7 @@ public class PassengerDAO extends BaseDAO<Passenger> {
 	}
 
 	public void create(Passenger p) throws ClassNotFoundException, SQLException{
-		save("insert into passenger(booking_id,given_name,family_name,dob,gender,adress),values(?,?,?,?,?,?)", 
+		save("insert into passenger(booking_id,given_name,family_name,dob,gender,address) values(?,?,?,?,?,?)", 
 				new Object[] {p.getBookingId(),p.getGivenName(),p.getFamilyName(),p.getDob(),p.getGender(),p.getAddress()});
 	}
 	

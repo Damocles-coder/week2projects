@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.smoothstack.utopia.entities.FlightRoute;
+import com.smoothstack.utopia.entities.User;
 import com.smoothstack.utopia.services.ServiceManager;
 
 /**
@@ -16,18 +17,14 @@ import com.smoothstack.utopia.services.ServiceManager;
  *
  */
 public class TravelerScreen4 implements Screen {
-	public int getId() {
-		return id;
-	}
-
-	private int id;
+	private User user;
 
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		System.out.println("\nPick the Flight you want to cancel:");
 		//call method from flight service that returns a list of flights
 		List<FlightRoute> array = null;
 		try {
-			array = ServiceManager.getFlightService().getFlightListFiltered(id);
+			array = ServiceManager.getFlightService().getFlightListFiltered(user.getId());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,8 +51,12 @@ public class TravelerScreen4 implements Screen {
 		}
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

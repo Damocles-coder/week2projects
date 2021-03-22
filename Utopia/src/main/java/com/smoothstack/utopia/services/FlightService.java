@@ -406,7 +406,7 @@ public class FlightService {
 		BookingUser bu;
 		FlightBooking fb;
 		Passenger p;
-		int bookingId;
+		int bookingId = 0;
 		switch(classId) {
 		case 1:
 			f.getFlight().setReservedSeats(f.getFlight().getReservedSeats()+1);
@@ -432,13 +432,14 @@ public class FlightService {
 			
 			//add passenger birthday/gender/address preset for now
 			p = new Passenger(bookingId, user.getGivenName(), user.getFamilyName(), LocalDate.of(1996, 5, 15), "n/a", "n/a");
+			p1.create(p);
 			
 			//not sure what stripe id is so I'll insert this
 			bp = new BookingPayment(bookingId,"",false);
 			bp1.create(bp);
 			
 			//insert booking user
-			bu = new BookingUser(b.getId(),user.getId());
+			bu = new BookingUser(bookingId,user.getId());
 			bu1.create(bu);
 			
 			//create flight_booking
@@ -451,6 +452,7 @@ public class FlightService {
 			conn.commit();
 		}
 		catch(Exception e) {
+			System.out.println("booking_id is: "+bookingId);
 			e.printStackTrace();
 			conn.rollback();
 			return false;

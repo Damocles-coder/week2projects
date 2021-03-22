@@ -16,7 +16,7 @@ public class BookingPaymentDAO extends BaseDAO<BookingPayment> {
 	}
 
 	public void create(BookingPayment bp) throws ClassNotFoundException, SQLException{
-		save("insert into booking_payment(booking_id,stripe_id,refunded),values(?,?,?)", 
+		save("insert into booking_payment(booking_id,stripe_id,refunded) values(?,?,?)", 
 				new Object[] {bp.getBookingId(), bp.getStripeId(), bp.isRefunded()});
 	}
 	
