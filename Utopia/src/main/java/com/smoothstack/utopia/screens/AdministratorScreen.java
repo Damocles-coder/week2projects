@@ -200,6 +200,10 @@ public class AdministratorScreen implements Screen {
 		for(FlightRoute f:flights) {
 			System.out.println(ServiceManager.getFlightService().printRoute(f.getRoute(),count++));
 		}
+		if (flights.size()==0) {
+			System.out.println("There are no flights cancelled for this user");
+			return;
+		}
 		System.out.println("What flight would you like to override?: ");
 		choice = scanner.nextInt();
 		try {
@@ -740,7 +744,7 @@ public class AdministratorScreen implements Screen {
 					e.printStackTrace();
 				}
 				break;
-			case 2:
+			case 3:
 				//delete
 				scanner.nextLine();
 				System.out.println("Enter email of employee you wish to delete:");
@@ -752,7 +756,7 @@ public class AdministratorScreen implements Screen {
 					e.printStackTrace();
 				}
 				break;
-			case 3:
+			case 2:
 				scanner.nextLine();
 				System.out.println("Enter email of employee you want to update:");
 				email = scanner.nextLine();
