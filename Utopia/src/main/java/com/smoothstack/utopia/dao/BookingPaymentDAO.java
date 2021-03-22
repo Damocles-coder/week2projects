@@ -32,4 +32,17 @@ public class BookingPaymentDAO extends BaseDAO<BookingPayment> {
 		return array;
 	}
 
+	public BookingPayment read(int userId, int flightId) throws ClassNotFoundException, SQLException {
+		return get("select bp.* from flight f join flight_bookings fb on fb.flight_id=f.id "
+				+ "join booking b on b.id=fb.booking_id "
+				+ "join booking_user ub on b.id=ub.booking_id "
+				+ "join booking_payment bp on bp.booking_id=b.id "
+				+ "where f.id=? and ub.user_id=?", new Object[] {flightId,userId}).get(0);
+	}
+
+	public void update(BookingPayment bp) throws ClassNotFoundException, SQLException {
+		save("update booking_payment set refunded=? where booking_id=?", 
+				new Object[] {bp.isRefunded(),bp.getBookingId()});
+	}
+
 }

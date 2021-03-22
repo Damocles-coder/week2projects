@@ -415,7 +415,7 @@ public class FlightService {
 			f.getFlight().setReservedSeats2(f.getFlight().getReservedSeats2()+1);
 			break;
 		case 3:
-			f.getFlight().setReservedSeats(f.getFlight().getReservedSeats()+1);
+			f.getFlight().setReservedSeats3(f.getFlight().getReservedSeats3()+1);
 			break;
 		}
 		try {
@@ -443,7 +443,7 @@ public class FlightService {
 			bu1.create(bu);
 			
 			//create flight_booking
-			fb = new FlightBooking(f.getFlight().getId(), bookingId);
+			fb = new FlightBooking(f.getFlight().getId(), bookingId, classId);
 			fb1.create(fb);
 			
 			//update flight seating
@@ -452,7 +452,62 @@ public class FlightService {
 			conn.commit();
 		}
 		catch(Exception e) {
-			System.out.println("booking_id is: "+bookingId);
+			e.printStackTrace();
+			conn.rollback();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		return true;
+	}
+
+	public boolean unbookSeat(User user, FlightRoute f) throws SQLException {
+		Connection conn = null;
+		Booking b = new Booking(false);
+		BookingPayment bp;
+		FlightBooking fb;
+		int bookingId = 0;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			FlightBookingDAO fb1 = new FlightBookingDAO(conn);
+			BookingDAO b1 = new BookingDAO(conn);
+			FlightDAO f1 = new FlightDAO(conn);
+			BookingPaymentDAO bp1 = new BookingPaymentDAO(conn);
+			
+			b=b1.read(user.getId(),f.getFlight().getId());
+			if(b.isActive()) {
+				return false;
+			}
+			
+			fb=fb1.read(user.getId(),f.getFlight().getId());
+			//read from inner joining flight and user
+			bp=bp1.read(user.getId(),f.getFlight().getId());
+			
+			switch(fb.getClassId()) {
+			case 1:
+				f.getFlight().setReservedSeats(f.getFlight().getReservedSeats()-1);
+				break;
+			case 2:
+				f.getFlight().setReservedSeats2(f.getFlight().getReservedSeats2()-1);
+				break;
+			case 3:
+				f.getFlight().setReservedSeats3(f.getFlight().getReservedSeats3()-1);
+				break;
+			}
+			b.setActive(false);
+			bp.setRefunded(true);
+			b1.update(b);
+			f1.update(f.getFlight());
+			bp1.update(bp);
+			
+			//delete passenger may be needed
+			conn.commit();
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			conn.rollback();
 			return false;

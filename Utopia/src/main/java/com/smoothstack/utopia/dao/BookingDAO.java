@@ -34,4 +34,11 @@ public class BookingDAO extends BaseDAO<Booking> {
 		return array;
 	}
 
+	public Booking read(int userId, int flightId) throws SQLException, ClassNotFoundException {
+		return get("select b.* from flight f join flight_bookings fb on fb.flight_id=f.id "
+				+ "join booking b on b.id=fb.booking_id "
+				+ "join booking_user ub on b.id=ub.booking_id "
+				+ "where f.id=? and ub.user_id=?", new Object[] {flightId,userId}).get(0);
+	}
+
 }

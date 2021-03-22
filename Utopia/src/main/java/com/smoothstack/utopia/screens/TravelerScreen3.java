@@ -60,28 +60,39 @@ public class TravelerScreen3 implements Screen {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			break;
+			return this;
 		case 3:
 			//create new booking with flight_booking class=2
 			if (fs.getCapacity2()-f.getFlight().getReservedSeats2()==0) {
 				System.out.println("No seats available");
 				return this;
 			}
-			break;
+			try {
+				ServiceManager.getFlightService().bookSeat(user,f,2);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return this;
 		case 4:
 			//create new booking with flight_booking class=1
 			if (fs.getCapacity3()-f.getFlight().getReservedSeats3()==0) {
 				System.out.println("No seats available");
 				return this;
 			}
-			break;
+			try {
+				ServiceManager.getFlightService().bookSeat(user,f,3);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return this;
 		case 5:
 			return ScreenManager.getTRAV1();
 		default:
 			System.out.println("Invalid input");
 			return this;
 		}
-		return this;
 	}
 
 	public User getUser() {

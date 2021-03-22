@@ -29,8 +29,9 @@ public class FlightRouteDAO extends BaseDAO<FlightRoute> {
 				+ "join airport o on r.origin_id = o.iata_id "
 				+ "join airport d on r.destination_id = d.iata_id "
 				+ "join flight_bookings fb on f.id=fb.flight_id "
+				+ "join booking b on fb.booking_id=b.id "
 				+ "join booking_user bu on bu.booking_id=fb.booking_id "
-				+ "where bu.user_id=?",new Object[] {id});
+				+ "where bu.user_id=? and b.is_active=true",new Object[] {id});
 	}
 	
 	/**

@@ -26,7 +26,6 @@ public class TravelerScreen4 implements Screen {
 		try {
 			array = ServiceManager.getFlightService().getFlightListFiltered(user.getId());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		int count = 1;
@@ -42,6 +41,7 @@ public class TravelerScreen4 implements Screen {
 		}
 		else if (choice>=1&&choice<count) {
 			Screen temp = ScreenManager.getTRAV5();
+			((TravelerScreen5)temp).setUser(user);
 			((TravelerScreen5)temp).setF(array.get(choice-1));
 			return temp;
 		}
