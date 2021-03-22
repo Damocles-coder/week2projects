@@ -16,6 +16,11 @@ public class RouteDAO extends BaseDAO<Route> {
 		super(conn);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void create(Route r) throws SQLException, ClassNotFoundException{
+		save("insert ignore into route(origin_id,destination_id) values(?,?)", 
+				new Object[] {r.getSource().getIataId(),r.getDestination().getIataId()});
+	}
 
 	public Route read(Route r) throws SQLException, ClassNotFoundException{
 	return get("select r.id, r.origin_id, r.destination_id, o.city as origin_city, d.city as destination_city "

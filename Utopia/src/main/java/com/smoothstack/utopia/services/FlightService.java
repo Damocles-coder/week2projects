@@ -103,6 +103,7 @@ public class FlightService {
 		Connection conn = null;
 		try {
 			conn = util.getConnection();
+			conn.setAutoCommit(false);
 			AirportDAO a1 = new AirportDAO(conn);
 			a1.create(airport);
 			conn.commit();
@@ -355,5 +356,69 @@ public class FlightService {
 				conn.close();
 			}
 		}
+	}
+
+	public void createRoute(Route route) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			RouteDAO r1 = new RouteDAO(conn);
+			r1.create(route);
+			conn.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+	}
+
+	public boolean createFlight(Flight flight) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			FlightDAO f1 = new FlightDAO(conn);
+			f1.create(flight);
+			conn.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		return true;
+	}
+
+	public boolean deleteFlight(Flight flight) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			conn.setAutoCommit(false);
+			FlightDAO f1 = new FlightDAO(conn);
+			f1.delete(flight.getId());
+			conn.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+			return false;
+		}
+		finally {
+			if (conn!=null) {
+				conn.close();
+			}
+		}
+		return true;
 	}
 }

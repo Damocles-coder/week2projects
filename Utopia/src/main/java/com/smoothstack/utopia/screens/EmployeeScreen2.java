@@ -28,10 +28,8 @@ public class EmployeeScreen2 implements Screen {
 			e.printStackTrace();
 		}
 		int count = 1;
-		if(array!=null) {
-			for (FlightRoute i:array) {
-				System.out.println(ServiceManager.getFlightService().printRoute(i.getRoute(),count++));
-			}
+		for (FlightRoute i:array) {
+			System.out.println(ServiceManager.getFlightService().printRoute(i.getRoute(),count++));
 		}
 		System.out.println(count+") Quit to previous");
 		int choice = scanner.nextInt();
