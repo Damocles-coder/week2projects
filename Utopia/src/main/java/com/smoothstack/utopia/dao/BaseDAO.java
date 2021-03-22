@@ -35,7 +35,7 @@ public abstract class BaseDAO<E> {
 		return;
 	}
 	
-	public Integer saveReturnPK(String command, Object[] values) throws ClassNotFoundException, SQLException{
+	protected Integer saveReturnPK(String command, Object[] values) throws ClassNotFoundException, SQLException{
 		PreparedStatement prst = conn.prepareStatement(command, Statement.RETURN_GENERATED_KEYS);
 		
 		int count = 1;

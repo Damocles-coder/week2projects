@@ -202,7 +202,7 @@ public class EmployeeScreen3 implements Screen {
 		System.out.println("3) Economy");
 		System.out.println("4) Quit to cancel operation");
 		int capacity;
-		AirplaneType airplane = ServiceManager.getFlightService().readAirplaneType(fr.getFlight().getId());
+		AirplaneType airplane = ServiceManager.getFlightService().readAirplaneType(fr.getFlight().getAirplaneId());
 		//once view updates, will switch
 		switch(scanner.nextInt()) {
 		case 1:
@@ -213,7 +213,7 @@ public class EmployeeScreen3 implements Screen {
 			ServiceManager.getFlightService().updateAirplane(airplane);
 			break;
 		case 2:
-			System.out.println("Existing number of seats: " + airplane.getCapacity3());
+			System.out.println("Existing number of seats: " + airplane.getCapacity2());
 			System.out.println("Enter new number of seats:");
 			capacity = scanner.nextInt();
 			airplane.setCapacity2(capacity);

@@ -332,7 +332,7 @@ public class AdministratorScreen implements Screen {
 		System.out.println("Please enter airplane_id: ");
 		airplaneId = scanner.nextInt();
 		try {
-			ServiceManager.getFlightService().createFlight(new Flight(routeId, airplaneId, departure, arrival, 0,0,0,0));
+			ServiceManager.getFlightService().createFlight(new Flight(routeId, airplaneId, departure, arrival, 100,100,100,100));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

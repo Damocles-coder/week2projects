@@ -36,7 +36,12 @@ public class Main {
 		Screen curr = ScreenManager.getMain();
 		Scanner scanner = new Scanner(System.in);
 		while (curr!=null) {
+			try {
 			curr = curr.run(scanner);
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
