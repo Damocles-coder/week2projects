@@ -12,20 +12,20 @@ public class Flight {
 	private int reservedSeats2;
 	private int reservedSeats3;
 	private float seatPrice;
-	
-	public Flight(int id, int routeId, int airplaneId, LocalDateTime departure, LocalDateTime arrival, 
+
+	public Flight(int id, int routeId, int airplaneId, LocalDateTime departure, LocalDateTime arrival,
 			int reservedSeats, int reservedSeats2, int reservedSeats3, float seatPrice) {
-		this.id=id;
-		this.routeId=routeId;
+		this.id = id;
+		this.routeId = routeId;
 		this.setAirplaneId(airplaneId);
 		this.departure = departure;
 		this.arrival = arrival;
-		this.reservedSeats=reservedSeats;
+		this.reservedSeats = reservedSeats;
 		this.seatPrice = seatPrice;
-		this.reservedSeats2=reservedSeats2;
-		this.reservedSeats3=reservedSeats3;
+		this.reservedSeats2 = reservedSeats2;
+		this.reservedSeats3 = reservedSeats3;
 	}
-	
+
 	public int getReservedSeats2() {
 		return reservedSeats2;
 	}
@@ -42,41 +42,48 @@ public class Flight {
 		this.reservedSeats3 = reservedSeats3;
 	}
 
-	public Flight(int routeId, int airplaneId, LocalDateTime departure, LocalDateTime arrival, 
-			int reservedSeats, int reservedSeats2, int reservedSeats3, float seatPrice) {
-		this.routeId=routeId;
+	public Flight(int routeId, int airplaneId, LocalDateTime departure, LocalDateTime arrival, int reservedSeats,
+			int reservedSeats2, int reservedSeats3, float seatPrice) {
+		this.routeId = routeId;
 		this.setAirplaneId(airplaneId);
 		this.departure = departure;
 		this.arrival = arrival;
 		this.setReservedSeats(reservedSeats);
 		this.seatPrice = seatPrice;
 		id = this.hashCode();
-		this.reservedSeats2=reservedSeats2;
-		this.reservedSeats3=reservedSeats3;
+		this.reservedSeats2 = reservedSeats2;
+		this.reservedSeats3 = reservedSeats3;
 	}
-	
+
 	/**
 	 * ID should not change
+	 * 
 	 * @return
 	 */
 	public int getId() {
 		return id;
 	}
+
 	public int getRouteId() {
 		return routeId;
 	}
+
 	public void setRouteId(int routeId) {
 		this.routeId = routeId;
 	}
+
 	public LocalDateTime getDeparture() {
 		return departure;
 	}
+
 	public void setDeparture(LocalDateTime departure) {
 		this.departure = departure;
 	}
+
 	public LocalDateTime getArrival() {
 		return arrival;
 	}
+
 	public void setArrival(LocalDateTime arrival) {
 		this.arrival = arrival;
 	}
@@ -104,7 +111,7 @@ public class Flight {
 	public void setSeatPrice(float seatPrice) {
 		this.seatPrice = seatPrice;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		int result = routeId * airplaneId + "yolo".hashCode();

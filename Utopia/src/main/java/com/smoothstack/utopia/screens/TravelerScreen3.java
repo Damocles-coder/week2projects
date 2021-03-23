@@ -12,16 +12,14 @@ import com.smoothstack.utopia.entities.User;
 import com.smoothstack.utopia.services.ServiceManager;
 
 /**
- * @author dyltr
- * Class allows booking of tickets
+ * @author dyltr Class allows booking of tickets
  */
 public class TravelerScreen3 implements Screen {
 	private FlightRoute f;
 	private User user;
 
 	/**
-	 * return this screen if inputs are valid and not 5
-	 * if 5, return previous
+	 * return this screen if inputs are valid and not 5 if 5, return previous
 	 */
 	public Screen run(Scanner scanner) throws InputMismatchException {
 		FlightStatus fs = null;
@@ -36,52 +34,52 @@ public class TravelerScreen3 implements Screen {
 		System.out.println("3) Business");
 		System.out.println("4) Economy");
 		System.out.println("5) Quit to cancel operation");
-		switch(scanner.nextInt()) {
+		switch (scanner.nextInt()) {
 		case 1:
-			System.out.println(ServiceManager.getFlightService().getFlightInfo(f,fs));
+			System.out.println(ServiceManager.getFlightService().getFlightInfo(f, fs));
 			return this;
 		case 2:
-			//create new booking with flight_booking class=1
-			if (fs.getCapacity()-f.getFlight().getReservedSeats()==0) {
+			// create new booking with flight_booking class=1
+			if (fs.getCapacity() - f.getFlight().getReservedSeats() == 0) {
 				System.out.println("No seats available");
 				return this;
 			}
-			//increment reserved_seat
-			//update flight
-			//booking id auto increments
-			//create booking
-			//create flight booking
-			//create booking payment with flight id
-			//create user booking with user id
-			//create passenger auto increments with user information for simplicity sake
+			// increment reserved_seat
+			// update flight
+			// booking id auto increments
+			// create booking
+			// create flight booking
+			// create booking payment with flight id
+			// create user booking with user id
+			// create passenger auto increments with user information for simplicity sake
 			try {
-				ServiceManager.getFlightService().bookSeat(user,f,1);
+				ServiceManager.getFlightService().bookSeat(user, f, 1);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return this;
 		case 3:
-			//create new booking with flight_booking class=2
-			if (fs.getCapacity2()-f.getFlight().getReservedSeats2()==0) {
+			// create new booking with flight_booking class=2
+			if (fs.getCapacity2() - f.getFlight().getReservedSeats2() == 0) {
 				System.out.println("No seats available");
 				return this;
 			}
 			try {
-				ServiceManager.getFlightService().bookSeat(user,f,2);
+				ServiceManager.getFlightService().bookSeat(user, f, 2);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return this;
 		case 4:
-			//create new booking with flight_booking class=1
-			if (fs.getCapacity3()-f.getFlight().getReservedSeats3()==0) {
+			// create new booking with flight_booking class=1
+			if (fs.getCapacity3() - f.getFlight().getReservedSeats3() == 0) {
 				System.out.println("No seats available");
 				return this;
 			}
 			try {
-				ServiceManager.getFlightService().bookSeat(user,f,3);
+				ServiceManager.getFlightService().bookSeat(user, f, 3);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

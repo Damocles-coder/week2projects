@@ -17,8 +17,7 @@ import com.smoothstack.utopia.services.ServiceManager;
 import com.smoothstack.utopia.services.UserService;
 
 /**
- * @author dyltr
- * initializes everything to run on console
+ * @author dyltr initializes everything to run on console
  */
 public class Main {
 
@@ -32,19 +31,18 @@ public class Main {
 
 		ServiceManager.setFlightService(new FlightService(util));
 		ServiceManager.setUserService(new UserService(util));
-		
+
 		Screen curr = ScreenManager.getMain();
 		Scanner scanner = new Scanner(System.in);
-		while (curr!=null) {
+		while (curr != null) {
 			try {
-			curr = curr.run(scanner);
-			}
-			catch(Exception e) {
+				curr = curr.run(scanner);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	private Util utilSetup() {
 		BufferedReader r1;
 		String url = null;

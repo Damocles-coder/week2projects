@@ -29,8 +29,8 @@ class UtilTest {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		Util test = new UtopiaUtil(url,username,password);
+
+		Util test = new UtopiaUtil(url, username, password);
 
 		assertNotNull(test);
 		Connection test2;

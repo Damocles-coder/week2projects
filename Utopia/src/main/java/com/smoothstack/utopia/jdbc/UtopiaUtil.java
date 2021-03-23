@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class UtopiaUtil extends Util {
-	
-	public UtopiaUtil(String url,String username,String password) {
+
+	public UtopiaUtil(String url, String username, String password) {
 		this.url = url;
 		this.password = password;
 		this.username = username;
@@ -16,5 +16,5 @@ public class UtopiaUtil extends Util {
 	public Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(url, username, password);
 	}
-	
+
 }

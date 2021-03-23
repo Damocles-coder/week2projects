@@ -12,8 +12,7 @@ import com.smoothstack.utopia.entities.User;
 import com.smoothstack.utopia.services.ServiceManager;
 
 /**
- * @author dyltr
- *Screen that allows cancellation of bookings
+ * @author dyltr Screen that allows cancellation of bookings
  */
 public class TravelerScreen5 implements Screen {
 	private FlightRoute f;
@@ -32,19 +31,19 @@ public class TravelerScreen5 implements Screen {
 		System.out.println("1) View Flight Details");
 		System.out.println("2) Cancel Booking");
 		System.out.println("3) Quit to cancel operation");
-		switch(scanner.nextInt()) {
+		switch (scanner.nextInt()) {
 		case 1:
-			System.out.println(ServiceManager.getFlightService().getFlightInfo(f,fs));
+			System.out.println(ServiceManager.getFlightService().getFlightInfo(f, fs));
 			return this;
 		case 2:
-			//get flight_booking to get seat class
-			//decrement reserved seat depending on the class
-			//update flight
-			//set Booking.isActive to false
-			//set BookingPayment.refund to true
-			//update both
+			// get flight_booking to get seat class
+			// decrement reserved seat depending on the class
+			// update flight
+			// set Booking.isActive to false
+			// set BookingPayment.refund to true
+			// update both
 			try {
-				ServiceManager.getFlightService().unbookSeat(user,f);
+				ServiceManager.getFlightService().unbookSeat(user, f);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

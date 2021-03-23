@@ -4,8 +4,8 @@
 package com.smoothstack.utopia.screens;
 
 /**
- * @author dyltr
- * Class to create instances of each screen and allow access to them
+ * @author dyltr Class to create instances of each screen and allow access to
+ *         them
  */
 public class ScreenManager {
 	private static Screen main;
@@ -18,63 +18,72 @@ public class ScreenManager {
 	private static Screen trav4;
 	private static Screen trav5;
 	private static Screen admin;
-	
+
 	public static Screen getMain() {
-		if (main==null) {
+		if (main == null) {
 			main = new MainScreen();
 		}
 		return main;
 	}
+
 	static Screen getAdmin() {
-		if (admin==null) {
+		if (admin == null) {
 			admin = new AdministratorScreen();
 		}
 		return admin;
 	}
+
 	static Screen getEMP1() {
-		if (emp1==null) {
+		if (emp1 == null) {
 			emp1 = new EmployeeScreen();
 		}
 		return emp1;
 	}
+
 	static Screen getEMP2() {
-		if (emp2==null) {
+		if (emp2 == null) {
 			emp2 = new EmployeeScreen2();
 		}
 		return emp2;
 	}
+
 	static Screen getEMP3() {
-		if (emp3==null) {
+		if (emp3 == null) {
 			emp3 = new EmployeeScreen3();
 		}
 		return emp3;
 	}
+
 	static Screen getTRAV1() {
-		if (trav1==null) {
+		if (trav1 == null) {
 			trav1 = new TravelerScreen();
 		}
 		return trav1;
 	}
+
 	static Screen getTRAV2() {
-		if (trav2==null) {
+		if (trav2 == null) {
 			trav2 = new TravelerScreen2();
 		}
 		return trav2;
 	}
+
 	static Screen getTRAV3() {
-		if (trav3==null) {
+		if (trav3 == null) {
 			trav3 = new TravelerScreen3();
 		}
 		return trav3;
 	}
+
 	static Screen getTRAV5() {
-		if (trav5==null) {
+		if (trav5 == null) {
 			trav5 = new TravelerScreen5();
 		}
 		return trav5;
 	}
+
 	static Screen getTRAV4() {
-		if (trav4==null) {
+		if (trav4 == null) {
 			trav4 = new TravelerScreen4();
 		}
 		return trav4;
