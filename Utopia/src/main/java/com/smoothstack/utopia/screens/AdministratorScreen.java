@@ -71,7 +71,7 @@ public class AdministratorScreen implements Screen {
 		System.out.println("You have chosen to update the Flight with Flight Id: " + fr.getFlight().getId()
 				+ " and Flight Origin: " + fr.getRoute().getSource().getIataId() + " and Flight Destination:"
 				+ fr.getRoute().getDestination().getIataId() + ". ");
-		System.out.println("Enter ‘quit’ at any prompt to cancel operation.");
+		System.out.println("Enter quit at any prompt to cancel operation.");
 		// flush nextLine from scanner
 		scanner.nextLine();
 		System.out.println(

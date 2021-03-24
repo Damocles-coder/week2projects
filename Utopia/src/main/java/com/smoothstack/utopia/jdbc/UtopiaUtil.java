@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UtopiaUtil extends Util {
 
 	public UtopiaUtil(String url, String username, String password) {
