@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.smoothstack.utopia.dao.AirplaneTypeDAO;
 import com.smoothstack.utopia.dao.AirportDAO;
 import com.smoothstack.utopia.dao.BookingDAO;
@@ -35,6 +37,7 @@ import com.smoothstack.utopia.jdbc.Util;
  * @author dyltr Services anything with a dependency on flight A lot of things
  *         have dependencies on flight
  */
+@Service
 public class FlightService {
 	Util util;
 

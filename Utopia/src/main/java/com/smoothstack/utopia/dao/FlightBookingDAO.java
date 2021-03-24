@@ -5,8 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
 import com.smoothstack.utopia.entities.FlightBooking;
 
+@Repository
 public class FlightBookingDAO extends BaseDAO<FlightBooking> {
 
 	public FlightBookingDAO(Connection conn) {

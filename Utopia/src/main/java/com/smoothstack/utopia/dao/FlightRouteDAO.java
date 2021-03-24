@@ -6,11 +6,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.smoothstack.utopia.entities.Airport;
 import com.smoothstack.utopia.entities.Flight;
 import com.smoothstack.utopia.entities.FlightRoute;
 import com.smoothstack.utopia.entities.Route;
 
+@Repository
 public class FlightRouteDAO extends BaseDAO<FlightRoute> {
 
 	public FlightRouteDAO(Connection conn) {

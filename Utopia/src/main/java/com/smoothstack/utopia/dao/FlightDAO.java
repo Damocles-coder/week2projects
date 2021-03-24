@@ -6,12 +6,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.smoothstack.utopia.entities.Flight;
 
 /**
  * @author dyltr
- * 
+ * Abstract class where all repositories extend from
  */
+@Repository
 public class FlightDAO extends BaseDAO<Flight> {
 
 	public FlightDAO(Connection conn) {

@@ -6,8 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.smoothstack.utopia.entities.Booking;
 
+@Repository
 public class BookingDAO extends BaseDAO<Booking> {
 
 	public BookingDAO(Connection conn) {

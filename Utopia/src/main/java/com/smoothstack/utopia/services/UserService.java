@@ -3,6 +3,9 @@ package com.smoothstack.utopia.services;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.smoothstack.utopia.dao.BookingDAO;
 import com.smoothstack.utopia.dao.UserDAO;
 import com.smoothstack.utopia.entities.Booking;
@@ -12,6 +15,7 @@ import com.smoothstack.utopia.jdbc.Util;
 /**
  * @author dyltr Services Users
  */
+@Service
 public class UserService {
 	Util util;
 
