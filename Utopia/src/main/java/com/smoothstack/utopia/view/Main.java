@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import com.smoothstack.utopia.jdbc.Util;
 import com.smoothstack.utopia.jdbc.UtopiaUtil;
 import com.smoothstack.utopia.screens.Screen;
@@ -19,6 +21,7 @@ import com.smoothstack.utopia.services.UserService;
 /**
  * @author dyltr initializes everything to run on console
  */
+@SpringBootApplication
 public class Main {
 
 	/**
